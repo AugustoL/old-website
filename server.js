@@ -10,6 +10,9 @@ var async = require('async');
 //Configuration
 var config = new require('./config');
 
+//var btcPayments = require('btc-payments');
+//var btc = new btcPayments();
+
 //Get arguments
 var args = process.argv.slice(2);
 
@@ -28,9 +31,10 @@ db.once('open', function callback () {
 
 //Launch express
 var app = express();
+process.env.PORT = 80;
 
 //Config Express
-app.set('port', (process.env.PORT || 80));
+app.set('port', process.env.PORT);
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
