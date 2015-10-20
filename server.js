@@ -1,7 +1,6 @@
 //Dependencies
 var express = require('express');
 var favicon = require('serve-favicon');
-var mailer = require('./express-mailer');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -40,12 +39,9 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(favicon(__dirname + '/public/img/handWhite.ico'));  
 app.use(favicon(__dirname + '/public/img/handRed.ico')); 
-app.use(express.static('public'));
+app.use('/public',express.static('public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-//MAILER
-mailer.extend(app, config.mailer);
 
 //Schemas
 require('./schemas/posts')(db,logger);

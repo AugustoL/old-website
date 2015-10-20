@@ -1,11 +1,12 @@
 
-angular.module('ALapp.services').factory('publicService', ['$http','$window', function ($http,$window) {
+angular.module('ALapp.services').factory('publicService', ['$http', function ($http) {
 
     var factory = {};
 
     //Get Posts
     factory.getPosts= function (findBy,skip,sort) {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getPosts',
             params: { findBy : findBy, skip : skip, sort : sort }
         });
@@ -13,7 +14,8 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
     }
 
     factory.getMonths= function () {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getMonths',
             params: {}
         });
@@ -21,7 +23,8 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
     }
 
     factory.getCategories= function () {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getCategories',
             params: {}
         });
@@ -29,7 +32,8 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
     }
 
     factory.getAllPlaylists= function () {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getAllPlaylists',
             params: {}
         });
@@ -37,7 +41,8 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
     }
 
     factory.getPlaylist= function (id,owner) {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getPlaylist',
             params: { id : id, owner : owner}
         });
@@ -46,7 +51,8 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
 
     //Get Post by id
     factory.getPost= function (id) {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getPost',
             params: { id : id }
         });

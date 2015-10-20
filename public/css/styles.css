@@ -8,7 +8,7 @@ html {
 body {
   font-family: myriad, sans-serif;
   font-size: 17px;
-  background-image: url("/img/background.png");
+  background-image: url("/public/img/background.png");
   background-position:top center;
   background-size:cover;
   background-repeat: repeat-y;
@@ -115,29 +115,6 @@ a{
 .img-xxl{
   width: 500px;
   height: 500px;
-}
-
-/* FONTS */
-@font-face {
-    font-family: myriad;
-    src:  url('/fonts/myriad-web-pro.woff') format('woff'),
-          url('/fonts/myriad-web-pro.tff') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: myriad;
-    src:  url('/fonts/myriad-pro-bold.woff') format('woff'),
-          url('/fonts/myriad-pro-bold.tff') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-@font-face {
-    font-family: myriad;
-    src:  url('/fonts/myriad-pro-italic.woff') format('woff'),
-          url('/fonts/myriad-pro-italic.tff') format('truetype');
-    font-weight: normal;
-    font-style: italic;
 }
 
 /* BOX */

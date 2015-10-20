@@ -11,14 +11,12 @@ module.exports = function(logger,app,db){
         app.get('/directives/:name',module.directives);
 
         //Views
-        app.get('/callback', module.index);
         app.get('/home', module.index);
         app.get('/post', module.index);
         app.get('/cv', module.index);
         app.get('/play', module.index);
         app.get('/music', module.index);
         app.get('/projects', module.index);
-        app.get('/contact',module.index);
         app.get('/error404', module.index);
 
         app.get('/getPosts', module.getPosts);
@@ -27,7 +25,6 @@ module.exports = function(logger,app,db){
         app.get('/getCategories', module.getCategories);
         app.get('/getImage', module.getImage);
         app.get('/getImages', module.getImages);
-        app.post('/sendMessage', module.sendMessage);
     }
 
     module.index = function(req,res){
@@ -136,18 +133,6 @@ module.exports = function(logger,app,db){
             else
                 res.json({success : true, images : images});
         });        
-    }
-
-    module.sendMessage = function(req,res){
-        var data = req.query;
-        req.app.mailer.send( {"html" : "From: "+data.from+"<br><br>"+data.text}, {to: 'me@augustolemble.com',subject: data.subject}, function (err) {
-            if(err){
-                logger.error(err);
-                res.json({success : false, message : err});
-            } else{
-                res.json({success : true});
-            }
-        });   
     }
 
     return module;

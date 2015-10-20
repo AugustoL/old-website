@@ -31,7 +31,6 @@ module.exports = function(logger,app,db){
         app.get('/directives/:name',module.directives);
 
         //Views
-        app.get('/callback', module.index);
         app.get('/home', module.index);
         app.get('/post', module.index);
         app.get('/about', module.index);
@@ -48,6 +47,7 @@ module.exports = function(logger,app,db){
         app.get('/getPlaylist', module.getPlaylist);
         app.get('/getImage', module.getImage);
         app.get('/getImages', module.getImages);
+
         app.post('/sendMessage', module.sendMessage);
     }
 
@@ -184,8 +184,11 @@ module.exports = function(logger,app,db){
     }
 
     module.sendMessage = function(req,res){
+        logger.log("yeah");
         var data = req.query;
-        req.app.mailer.send( {"html" : "From: "+data.from+"<br><br>"+data.text}, {to: 'me@augustolemble.com',subject: data.subject}, function (err) {
+        logger.log("yeah");
+        logger.log(data);
+        app.mailer.send( {"html" : "From: "+data.from+"<br><br>"+data.text}, {to: 'me@augustolemble.com',subject: data.subject}, function (err) {
             if(err){
                 logger.error(err);
                 res.json({success : false, message : err});
