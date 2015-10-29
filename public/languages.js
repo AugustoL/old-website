@@ -24,7 +24,8 @@ var strings = {
 		"contact" : "Contact",
 		"submit" : "Submit",
 		"search" : "Search",
-		"searchByTitle" : "Search by title.."
+		"searchByTitle" : "Search by title..",
+		"videocall" : "Videocall"
 	},
 	"es": {
 		"language" : "es",
@@ -51,7 +52,8 @@ var strings = {
 		"contact" : "Contacto",
 		"submit" : "Enviar",
 		"search" : "Buscar",
-		"searchByTitle" : "Buscar por titulo.."
+		"searchByTitle" : "Buscar por titulo..",
+		"videocall" : "Videocall"
 	}
 };
 
