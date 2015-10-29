@@ -15,6 +15,7 @@ var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 //Get arguments
 var args = process.argv.slice(2);
 
+/*
 //Cretaing BTC-Payments
 var btcPayments = require('btc-payments');
 var btcPaymentsConfig = {
@@ -34,7 +35,7 @@ var btcPaymentsFunctions = {
 		callback(null,'Success');
 	}
 };
-/*
+
 var BTC = new btcPayments(btcPaymentsConfig,btcPaymentsFunctions);
 BTC.start(function(err){
 	if (err){
