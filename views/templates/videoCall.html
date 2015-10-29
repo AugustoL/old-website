@@ -17,6 +17,17 @@
 		<div class="col-xs-2"></div>
 		<div class="col-xs-6"><video autoplay id="myVideo" class="video"></video></div>
 		<div class="col-xs-6"><video autoplay id="otherVideo" class="video"></video></div>
+		<div class="col-xs-12" ng-show="callActive">
+			<div id="chatBox"></div>
+		</div>
+		<form ng-submit="sendMessage()" ng-show="callActive">
+			<div class="col-xs-11">
+				<input name="message" type="text" class="form-control" id="message" ng-model="message">
+			</div>
+			<div class="col-xs-1 text-center">
+				<button class="btn btn-default" type="submit"> Send </button>
+			</div>
+		</form>
 	</div>
 </div>
 <div class="container visible-xs">

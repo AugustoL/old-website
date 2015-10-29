@@ -5,6 +5,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var async = require('async');
+var cors = require('cors');
 
 //Configuration
 var config = new require('./config');
@@ -77,6 +78,7 @@ app.use(favicon(__dirname + '/public/img/handRed.ico'));
 app.use('/public',express.static('public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(cors());
 
 //Schemas
 require('./schemas/posts')(db,logger);
@@ -89,12 +91,19 @@ require('./routes/spotify')(logger,app,db,config.spotifyCredentials).addRoutes()
 require('./routes/routes')(logger,app,db).addRoutes();
 
 app.all('/internalError',function(req,res) { res.render('error500.html') });
-app.all('*',function(req,res) { res.render('error404.html') });
+//app.all('*',function(req,res) { res.render('error404.html') });
 
 //Start the server
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
     logger.important('Augusto\'s website started at port '+app.get('port'));
 })
+
+//PeerJS Server
+var ExpressPeerServer = require('peer').ExpressPeerServer;
+var peerjsOptions = { debug : true };
+
+//PeerJS API 
+app.use('/peerapi', ExpressPeerServer(server, peerjsOptions));
 
 process.on('SIGINT', function() {
     process.exit();

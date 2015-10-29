@@ -1,12 +1,13 @@
 angular.module('ALapp.controllers').controller('videoCallController',['$scope','sessionService', function($scope,sessionService){
 	console.log("videoCallController init");
 	$scope.words = sessionService.getStrings();
-	var peer = new Peer({key: '426byzgxlq9w9udi'});
+	//var peer = new Peer({key: '426byzgxlq9w9udi'});
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    //var peer = new Peer($scope.myID, {host: '107.170.190.132', port: 80, path: '/peerapi/'});
+    var peer = new Peer({host: 'localhost', port: 80, path: '/peerapi/'});
 
     $scope.myID = '';
     $scope.readyToCall = false;
+    $scope.callActive = false;
 
     peer.on('open', function(id) {
     	$scope.readyToCall = true;
@@ -34,6 +35,9 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 	    peer.on('disconnected', function(id) {
 	    	peer.disconnect();
 	    	console.log('Videocall was disconnected');
+		});
+		peer.on('data', function(data) {
+		    $scope.addMessage(data);
 		});
 	};
 
@@ -69,6 +73,9 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 	    	peer.disconnect();
 	    	console.log('Videocall was disconnected');
 		});
+		peer.on('data', function(data) {
+		    $scope.addMessage(data);
+		});
 	}
 
 	function receivedStream(stream){
@@ -78,13 +85,6 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 	        console.log('receivedVideo loaded');
 	    };
 	}
-	/*
-	function errorCallback(err) {
-		console.log('an error occured while getting the video');
-        console.log(err);
-	}
-	*/
-	//navigator.getUserMedia({audio: true, video: true}, myStream, errorCallback);
 
 	function myStream(stream){
 	    var sentVideo = document.querySelector('#myVideo');
@@ -93,5 +93,26 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 	        console.log('sentVideo loaded');
 	    };
 	    
+	}
+
+	peer.on('connection', function(dataConnection) { 
+		$scope.callActive = true;
+	});
+
+	
+	$scope.addMessage = function(message) {
+		console.log($scope.message);
+		peer.send($scope.message);
+		$('#chatBox').append('<div class="chat-message"><span>You: </span>' + message + '</div>');
+		var height = 0;
+		$( ".chat-message" ).each(function( index ) {
+		  	height = height + $(this)[0].clientHeight;
+		});
+		$('#chatBox').scrollTop(height);
+	}
+
+	$scope.sendMessage = function() {
+		peer.send($scope.message);
+		$scope.addMessage($scope.message);
 	}
 }]);
