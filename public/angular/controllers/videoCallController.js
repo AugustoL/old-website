@@ -7,7 +7,7 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 
     $scope.myID = '';
     $scope.readyToCall = false;
-    $scope.callActive = false;
+    $scope.callActive = true;
 
     peer.on('open', function(id) {
     	$scope.readyToCall = true;
