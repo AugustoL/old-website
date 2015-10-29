@@ -2,10 +2,10 @@
 <html ng-app="ALapp">
     <head>
         <base href="/">
-        <title>AugustoLemble</title>
+        <title ng-bind="metaService.metaTitle()">AugustoLemble</title>
+        <meta name="description" content="{{ metaService.metaDescription() }}" />
+        <meta name="keywords" content="{{ metaService.metaKeywords() }}" />
         <meta name="author" content="Augusto Lemble">
-        <meta name="description" content="Personal website with my works, music, journeys, etc.">
-        <meta name="keywords" content="Augusto Lemble">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/img/handWhite.ico" type="image/x-icon">
         <!-- CSS and LESS -->
@@ -33,6 +33,7 @@
         <script type="text/javascript" src="/public/angular/directives/image.js"></script>
         <script type="text/javascript" src="/public/angular/services/publicService.js"></script> 
         <script type="text/javascript" src="/public/angular/services/sessionService.js"></script>
+        <script type="text/javascript" src="/public/angular/services/metaService.js"></script>
         <script type="text/javascript" src="/public/angular/controllers/navBarController.js"></script>
         <script type="text/javascript" src="/public/angular/controllers/sidebarController.js"></script>
         <script type="text/javascript" src="/public/angular/controllers/homeController.js"></script>
