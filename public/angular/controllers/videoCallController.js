@@ -3,7 +3,7 @@ angular.module('ALapp.controllers').controller('videoCallController',['$scope','
 	$scope.words = sessionService.getStrings();
 	//var peer = new Peer({key: '426byzgxlq9w9udi'});
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    var peer = new Peer({host: 'localhost', port: 80, path: '/peerapi/'});
+    var peer = new Peer({host: '159.203.83.144', port: 80, path: '/peerapi/'});
 
     $scope.myID = '';
     $scope.readyToCall = false;
