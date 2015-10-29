@@ -34,7 +34,7 @@ var btcPaymentsFunctions = {
 		callback(null,'Success');
 	}
 };
-
+/*
 var BTC = new btcPayments(btcPaymentsConfig,btcPaymentsFunctions);
 BTC.start(function(err){
 	if (err){
@@ -50,7 +50,7 @@ BTC.start(function(err){
 
 	}	
 });
-
+*/
 
 //Connect
 mongoose.connect(config.dbURI);
