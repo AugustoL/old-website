@@ -9,7 +9,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/music',{ templateUrl: '/templates/music.html', controller : 'musicController' });
     $routeProvider.when('/play',{ templateUrl: '/templates/play.html', controller : 'playController' });
     $routeProvider.when('/cv',{ templateUrl: '/templates/cv.html', controller : 'cvController' });
-    $routeProvider.when('/contact',{ templateUrl: '/templates/contact.html', controller : 'contactController' });
+    $routeProvider.when('/videoCall',{ templateUrl: '/templates/videoCall.html', controller : 'videoCallController' });
     //Otherwise
     $routeProvider.otherwise({redirectTo: '/'});
 

@@ -17,6 +17,7 @@ module.exports = function(logger,app,db){
         app.get('/play', module.index);
         app.get('/music', module.index);
         app.get('/projects', module.index);
+        app.get('/videoCall', module.index);
         app.get('/error404', module.index);
 
         app.get('/getPosts', module.getPosts);

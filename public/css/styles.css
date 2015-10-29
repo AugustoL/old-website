@@ -45,6 +45,15 @@ body {
   background-size:cover;
   background-position:50% 50%;
   border-radius: 3px;
+  margin-right: 10px;
+}
+.profilePost-small{
+  width: 80px;
+  height: 80px;
+  background-size:cover;
+  background-position:50% 50%;
+  border-radius: 3px;
+  margin-right: 10px;
 }
 .blog-post{
   overflow: hidden;
@@ -117,6 +126,16 @@ a{
   height: 500px;
 }
 
+/* VIDEOCALL */
+
+.video{
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+  border: 2px solid gray;
+  border-radius: 3px;
+}
+
 /* BOX */
 .box {
   background-color: #F7FEFF;
@@ -135,6 +154,9 @@ a{
 }
 
 /* FOOTER */
+
+  
+
 footer{
   position: absolute;
   width:100%;
@@ -146,6 +168,19 @@ footer{
   padding-top: 2px;
   bottom: 0;
 }
+@media (min-width: 0px) and (max-width: 768px) { 
+    footer{
+      position: absolute;
+      width:100%;
+      text-align: center;
+      font-size: 14px;
+      word-spacing: 10px;
+      background-color: #F7FEFF;
+      height: 25px;
+      padding-top: 2px;
+      bottom: 0;
+    }
+  }
 .spaceFooter{
   cursor:pointer;
 }
@@ -164,14 +199,6 @@ footer a:hover{
   width: 100%;
   height: 100%;
   background-size:cover;
-}
-
-/* Contact */
-.contactInput{
-  width: 100%;
-  height: 300px !important;
-  resize: none;
-  margin-bottom: 5px;
 }
 
 /* Useful Classes */
@@ -210,6 +237,9 @@ footer a:hover{
 .cursor-pointer{
   cursor: pointer;
 }
+
+/* GAME */
+
 #game {
   background-color: #000205;
 }

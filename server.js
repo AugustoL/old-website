@@ -9,14 +9,48 @@ var async = require('async');
 //Configuration
 var config = new require('./config');
 
-//var btcPayments = require('btc-payments');
-//var btc = new btcPayments();
+//Logger
+var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 
 //Get arguments
 var args = process.argv.slice(2);
 
-//Logger
-var logger = new require('./logger')(config.logLevel);
+//Cretaing BTC-Payments
+var btcPayments = require('btc-payments');
+var btcPaymentsConfig = {
+    logLevel : 'debug', // none, normal, debug
+    dbURI : 'mongodb://user:user@ds043694.mongolab.com:43694/btcpayments', //URI to use to connect to db
+    network : 'testnet', // testnet or livenet
+    seedBytes : "testingseed22", // String of the seed master key
+    btcMainAddress : "mqyp4A44N1ekc2LzoAjasMo4SToZUrwfrG", // Address to receive the payments
+    paymentTimeout : 120, // In minutes
+    limitBalance : 0.005,
+    txFee : 0.00001,
+    functionTimeout : 10 // In seconds
+};
+var btcPaymentsFunctions = {
+	0 : function(callback){
+		console.log('Type one tx done');
+		callback(null,'Success');
+	}
+};
+
+var BTC = new btcPayments(btcPaymentsConfig,btcPaymentsFunctions);
+BTC.start(function(err){
+	if (err){
+		logger.error(err);
+	} else {
+		for (var i in args)
+    		if (args[i] == '-createTX'){
+				BTC.createTX(0,0.02,{},function(err,newTX){
+					if (err)
+						logger.error(err);
+				});
+			}
+
+	}	
+});
+
 
 //Connect
 mongoose.connect(config.dbURI);
@@ -60,4 +94,8 @@ app.all('*',function(req,res) { res.render('error404.html') });
 app.listen(app.get('port'), function() {
     logger.important('Augusto\'s website started at port '+app.get('port'));
 })
+
+process.on('SIGINT', function() {
+    process.exit();
+});
 

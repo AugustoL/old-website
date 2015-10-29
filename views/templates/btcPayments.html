@@ -1,0 +1,111 @@
+<navbar></navbar>
+<div class="container">
+	<div class="row" ng-show="loadingData">
+		<div class="col-xs-1" ></div>
+		<div class="box col-xs-10">
+			<h3 class="text-center"><i class="fa fa-refresh fa-spin"></i></h3>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="col-xs-1 invisible" ></div>
+		<div class="box col-xs-10">
+			<h3 class="text-center"> Payments Waiting </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="colum">To Address</th>
+						<th class="colum">Date Begin</th>
+						<th class="colum">Type</th>
+						<th class="colum">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="payment in paymentsWaiting">
+						<td class="colum">{{payment.toAddress}} </td>
+						<td class="colum">{{payment.dateBegin}}</td>
+						<td class="colum">{{payment.type}}</td>
+						<td class="colum">{{payment.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="col-xs-1 invisible" ></div>
+		<div class="box col-xs-10">
+			<h3 class="text-center"> Payments Done </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="colum">To Address</th>
+						<th class="colum">From Address</th>
+						<th class="colum">Date Begin</th>
+						<th class="colum">Type</th>
+						<th class="colum">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="payment in paymentsDome">
+						<td class="colum">{{payment.toAddress}} </td>
+						<td class="colum">{{payment.fromAddress}} </td>
+						<td class="colum">{{payment.dateBegin}}</td>
+						<td class="colum">{{payment.type}}</td>
+						<td class="colum">{{payment.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="col-xs-1 invisible" ></div>
+		<div class="box col-xs-10">
+			<h3 class="text-center"> Addresses Waiting </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="colum">Address</th>
+						<th class="colum">Payment Waiting</th>
+						<th class="colum">Date Begin</th>
+						<th class="colum">Type</th>
+						<th class="colum">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="address in addressesWaiting">
+						<td class="colum">{{address.string}} </td>
+						<td class="colum">{{address.paymentW}} </td>
+						<td class="colum">{{address.dateBegin}}</td>
+						<td class="colum">{{address.type}}</td>
+						<td class="colum">{{address.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="col-xs-1 invisible" ></div>
+		<div class="box col-xs-10">
+			<h3 class="text-center"> Addresses Waiting </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="colum">Address</th>
+						<th class="colum">Payment Waiting</th>
+						<th class="colum">Date Begin</th>
+						<th class="colum">Type</th>
+						<th class="colum">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="address in addressesWaiting">
+						<td class="colum">{{address.string}} </td>
+						<td class="colum">{{address.paymentW}} </td>
+						<td class="colum">{{address.dateBegin}}</td>
+						<td class="colum">{{address.type}}</td>
+						<td class="colum">{{address.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
