@@ -7,7 +7,7 @@ angular.module('ALapp.services').factory('metaService', function(){
       metaKeywords = newKeywords;
       metaDescription = newMetaDescription;
       title = newTitle; 
-    },
+    }
     metaTitle: function(){ return title; }, 
     metaDescription: function() { return metaDescription; },
     metaKeywords: function() { return metaKeywords; }
