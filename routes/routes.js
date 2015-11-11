@@ -12,7 +12,7 @@ module.exports = function(logger,app,db){
 
         //Views
         app.get('/home', module.index);
-        app.get('/post', module.index);
+        app.get('/post', module.renderPost);
         app.get('/cv', module.index);
         app.get('/play', module.index);
         app.get('/music', module.index);
@@ -29,7 +29,11 @@ module.exports = function(logger,app,db){
     }
 
     module.index = function(req,res){
-        res.render('index.html');
+        res.render('index.html', {
+            url: '',
+            title: 'AugustoLemble.com',
+            description: ''
+        });
     };
 
     module.templates = function(req,res){
@@ -38,6 +42,21 @@ module.exports = function(logger,app,db){
 
     module.directives = function(req,res){
         res.render('directives/' + req.params.name);
+    };
+
+    module.renderPost = function (req, res) {
+        var data = req.query;
+        var url = req.protocol + '://' + req.get('host') + req.originalUrl; // points to this endpoint
+        logger.log('Rendering post '+data.id);
+        var toReturn = {};
+        db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
+            if (post)
+                res.render('index.html', {
+                    url: url,
+                    title: post.titleEn,
+                    description: post.bodyEn
+                });
+        });
     };
 
     // Get months 

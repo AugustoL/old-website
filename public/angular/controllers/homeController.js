@@ -47,6 +47,10 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
         $location.search($routeParams);
     }
 
+    $scope.goPost = function(id){
+        $window.location.assign('/post?id='+id);
+    }
+
     $scope.toTrusted = function(html_code) {
         return $sce.trustAsHtml(html_code);
     }
