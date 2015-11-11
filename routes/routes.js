@@ -6,19 +6,19 @@ module.exports = function(logger,app,db){
 
     module.addRoutes = function(){
         //Index, templates and directives
-        app.get('/', module.index);
+        app.get('/', module.renderIndex);
         app.get('/templates/:name',module.templates);
         app.get('/directives/:name',module.directives);
 
         //Views
-        app.get('/home', module.index);
+        app.get('/home', module.renderIndex);
         app.get('/post', module.renderPost);
-        app.get('/cv', module.index);
-        app.get('/play', module.index);
-        app.get('/music', module.index);
-        app.get('/projects', module.index);
-        app.get('/videoCall', module.index);
-        app.get('/error404', module.index);
+        app.get('/cv', module.renderIndex);
+        app.get('/play', module.renderIndex);
+        app.get('/music', module.renderIndex);
+        app.get('/projects', module.renderIndex);
+        app.get('/videoCall', module.renderIndex);
+        app.get('/error404', module.renderIndex);
 
         app.get('/getPosts', module.getPosts);
         app.get('/getPost', module.getPost);
@@ -28,11 +28,13 @@ module.exports = function(logger,app,db){
         app.get('/getImages', module.getImages);
     }
 
-    module.index = function(req,res){
+    module.renderIndex = function(req,res){
+        var url = req.protocol + '://' + req.get('host') + req.originalUrl
         res.render('index.html', {
-            url: '',
+            url: url,
             title: 'AugustoLemble.com',
-            description: ''
+            description: 'Personal website with my works, music, journeys, etc.',
+            ogimage: "http://augustolemble.com/getImage?name=yo2"
         });
     };
 
@@ -45,11 +47,8 @@ module.exports = function(logger,app,db){
     };
 
     module.renderPost = function (req, res) {
-        var data = req.query;
         var url = req.protocol + '://' + req.get('host') + req.originalUrl; // points to this endpoint
-        logger.log('Rendering post '+data.id);
-        var toReturn = {};
-        db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
+        db.posts.findOne({'_id' : req.query.id}, {}, function (err, post) {
             if (post)
                 res.render('index.html', {
                     url: url,
