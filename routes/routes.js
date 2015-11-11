@@ -54,7 +54,8 @@ module.exports = function(logger,app,db){
                 res.render('index.html', {
                     url: url,
                     title: post.titleEn,
-                    description: post.bodyEn
+                    description: post.bodyEn,
+                    ogimage: "http://augustolemble.com/getImage?name="+post.img,
                 });
         });
     };
