@@ -1,6 +1,6 @@
 var async = require('async');
 
-module.exports = function(logger,app,db){
+module.exports = function(logger,app,db,BTCPayments){
 
     var module = {};
 
@@ -18,6 +18,7 @@ module.exports = function(logger,app,db){
         app.get('/music', module.renderIndex);
         app.get('/projects', module.renderIndex);
         app.get('/videoCall', module.renderIndex);
+        app.get('/btcPayments', module.renderIndex);
         app.get('/error404', module.renderIndex);
 
         app.get('/getPosts', module.getPosts);
@@ -26,6 +27,15 @@ module.exports = function(logger,app,db){
         app.get('/getCategories', module.getCategories);
         app.get('/getImage', module.getImage);
         app.get('/getImages', module.getImages);
+
+        //BTC-Payments
+        app.get('/getPoolAddresses', module.getPoolAddresses);
+		app.get('/getPaymentsDone', module.getPaymentsDone);
+		app.get('/getPaymentsWaiting', module.getPaymentsWaiting);
+		app.get('/getPaymentDone', module.getPaymentDone);
+		app.get('/getPaymentWaiting', module.getPaymentWaiting);
+		app.get('/getPaymentFuctions', module.getPaymentFuctions);
+		app.post('/createBTCPayment', module.createBTCPayment);
     }
 
     module.renderIndex = function(req,res){
@@ -154,6 +164,76 @@ module.exports = function(logger,app,db){
                 res.json({success : true, images : images});
         });        
     }
+
+    //BTC-Payments
+    module.getPoolAddresses = function(req,res){
+        BTCPayments.getPoolAddresses(req.query.type,req.query.limit,function(err,addresses){
+        	if (err)
+        		res.json({ success : false, message : err});
+        	else
+        		res.json({ success : true, addresses : addresses});
+        })
+    }
+
+    module.getPaymentsDone = function(req,res){
+    	BTCPayments.getPaymentsDone(req.query.limit,function(err,payments){
+        	if (err)
+        		res.json({ success : false, message : err});
+        	else
+        		res.json({ success : true, payments : payments});
+        })
+    }
+
+    module.getPaymentsWaiting = function(req,res){
+    	BTCPayments.getPaymentsWaiting(req.query.limit,function(err,payments){
+        	if (err)
+        		res.json({ success : false, message : err});
+        	else
+        		res.json({ success : true, payments : payments});
+        })
+    }
+
+    module.getPaymentDone = function(req,res){
+    	BTCPayments.getPaymentDone(req.query.id,function(err,payment){
+        	if (err)
+        		res.json({ success : false, message : err});
+        	else
+        		res.json({ success : true, payment : payment});
+        })
+    }
+
+    module.getPaymentWaiting = function(req,res){
+    	BTCPayments.getPaymentWaiting(req.query.id,function(err,payment){
+        	if (err)
+        		res.json({ success : false, message : err});
+        	else
+        		res.json({ success : true, payment : payment});
+        })
+    }
+
+    module.getPaymentFuctions = function(req,res){
+    	var functions = BTCPayments.getPaymentFuctions();
+    	var toReturn = [];
+    	for (i in functions)
+    		toReturn.push({
+    			name : i,
+    			code : functions[i].toString()
+    		})
+        res.json({ success : true, functions : toReturn});
+    }
+
+    module.createBTCPayment = function(req,res){
+    	console.log(req.query);
+        var otherData = {
+            message : req.query.message
+        }
+        BTCPayments.createTX(req.query.operation,req.query.quantity,otherData,function(err,newTX){
+			if (err)
+				res.json({ success : false, message : err});
+			else
+				res.json({ success : true, newTX : newTX});
+		});
+}
 
     return module;
 

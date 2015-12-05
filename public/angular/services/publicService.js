@@ -77,5 +77,66 @@ angular.module('ALapp.services').factory('publicService', ['$http', function ($h
         return promise;
     }
 
+    //BTC-Payments
+    factory.getAddressesWaiting = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPoolAddresses',
+            params: { type : 'waiting', limit : 10 }
+        });
+        return promise;
+    }
+    factory.getAddressesFree = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPoolAddresses',
+            params: { type : 'free', limit : 10 }
+        });
+        return promise;
+    }
+	factory.getPaymentsDone = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPaymentsDone'
+        });
+        return promise;
+    }
+	factory.getPaymentsWaiting = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPaymentsWaiting'
+        });
+        return promise;
+    }
+	factory.getPaymentDone = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPaymentDone'
+        });
+        return promise;
+    }
+	factory.getPaymentWaiting = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPaymentWaiting'
+        });
+        return promise;
+    }
+	factory.getPaymentFuctions = function(){
+        var promise = $http({
+            method: 'GET',
+            url: '/getPaymentFuctions'
+        });
+        return promise;
+    }
+    factory.createBTCPayment = function(operation,quantity,message){
+        var promise = $http({
+            method: 'POST',
+            url: '/createBTCPayment',
+            params: { operation : operation, quantity : quantity, message : message}
+        });
+        return promise;
+    }
+
     return factory;
 }]);

@@ -7,102 +7,140 @@
 		</div>
 	</div>
 	<div class="row" ng-show="!loadingData">
-		<div class="col-xs-1 invisible" ></div>
-		<div class="box col-xs-10">
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Create Payment </h3>
+			<div class="row">
+				<div class="col-xs-4 text-center">
+					<div class="form-group">
+						<label for="exampleInputFile">Extra message</label><br>
+						<input name="paymentMessage" ng-model="paymentMessage" type="text">
+					</div>
+				</div>
+				<div class="col-xs-3 text-center">
+					<div class="form-group">
+						<label for="exampleInputFile">BTC Quantity</label><br>
+						<input name="paymentQuantity" ng-model="paymentQuantity" type="number" min="0,0000001" max="1" step="0.0001">
+					</div>
+				</div>
+				<div class="col-xs-2 text-center">
+					<div class="form-group">
+						<label for="exampleInputFile">Operation</label>
+						<select class="form-control" ng-model="paymentOperation">
+							<option ng-repeat="op in paymentFunctions">{{op.name}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-3 text-center">
+					<br>
+					<button class="btn btn-default" ng-click="createPayment()">Create Payment</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
 			<h3 class="text-center"> Payments Waiting </h3>
 			<table class="table table-hover hidden-xs">
 				<thead>
 					<tr>
-						<th class="colum">To Address</th>
-						<th class="colum">Date Begin</th>
-						<th class="colum">Type</th>
-						<th class="colum">Quantity</th>
+						<th class="text-center">To Address</th>
+						<th class="text-center">Date Begin</th>
+						<th class="text-center">Operation</th>
+						<th class="text-center">Quantity</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="payment in paymentsWaiting">
-						<td class="colum">{{payment.toAddress}} </td>
-						<td class="colum">{{payment.dateBegin}}</td>
-						<td class="colum">{{payment.type}}</td>
-						<td class="colum">{{payment.quantity}}</td>
+					<tr ng-repeat="paymentW in paymentsWaiting">
+						<td class="text-center"><small>{{paymentW.toAddress}}</small></td>
+						<td class="text-center">{{paymentW.dateBegin | date:'short'}}</td>
+						<td class="text-center">{{paymentW.opName}}</td>
+						<td class="text-center">{{paymentW.quantity}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="row" ng-show="!loadingData">
-		<div class="col-xs-1 invisible" ></div>
-		<div class="box col-xs-10">
+		<div class="box col-xs-12">
 			<h3 class="text-center"> Payments Done </h3>
 			<table class="table table-hover hidden-xs">
 				<thead>
 					<tr>
-						<th class="colum">To Address</th>
-						<th class="colum">From Address</th>
-						<th class="colum">Date Begin</th>
-						<th class="colum">Type</th>
-						<th class="colum">Quantity</th>
+						<th class="text-center">To Address</th>
+						<th class="text-center">From Address</th>
+						<th class="text-center">Date Begin - Date Finish</th>
+						<th class="text-center">Operation</th>
+						<th class="text-center">Quantity</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="payment in paymentsDome">
-						<td class="colum">{{payment.toAddress}} </td>
-						<td class="colum">{{payment.fromAddress}} </td>
-						<td class="colum">{{payment.dateBegin}}</td>
-						<td class="colum">{{payment.type}}</td>
-						<td class="colum">{{payment.quantity}}</td>
+					<tr ng-repeat="paymentD in paymentsDone">
+						<td class="text-center"><small>{{paymentD.toAddress}}</small></td>
+						<td class="text-center"><small>{{paymentD.fromAddress}}</small></td>
+						<td class="text-center">{{paymentD.dateBegin | date:'short'}} - {{paymentD.dateFinish | date:'short'}}</td>
+						<td class="text-center">{{paymentD.opName}}</td>
+						<td class="text-center">{{paymentD.quantity}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="row" ng-show="!loadingData">
-		<div class="col-xs-1 invisible" ></div>
-		<div class="box col-xs-10">
+		<div class="box col-xs-12">
 			<h3 class="text-center"> Addresses Waiting </h3>
 			<table class="table table-hover hidden-xs">
 				<thead>
 					<tr>
-						<th class="colum">Address</th>
-						<th class="colum">Payment Waiting</th>
-						<th class="colum">Date Begin</th>
-						<th class="colum">Type</th>
-						<th class="colum">Quantity</th>
+						<th class="text-center">Address</th>
+						<th class="text-center">Payment Waiting</th>
+						<th class="text-center">Operation</th>
+						<th class="text-center">Blance</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="address in addressesWaiting">
-						<td class="colum">{{address.string}} </td>
-						<td class="colum">{{address.paymentW}} </td>
-						<td class="colum">{{address.dateBegin}}</td>
-						<td class="colum">{{address.type}}</td>
-						<td class="colum">{{address.quantity}}</td>
+						<td class="text-center"><small>{{address.string}}</small></td>
+						<td class="text-center">{{address.paymentWaiting}}</td>
+						<td class="text-center">{{address.opName}}</td>
+						<td class="text-center">{{address.balance}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="row" ng-show="!loadingData">
-		<div class="col-xs-1 invisible" ></div>
-		<div class="box col-xs-10">
-			<h3 class="text-center"> Addresses Waiting </h3>
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Addresses Free </h3>
 			<table class="table table-hover hidden-xs">
 				<thead>
 					<tr>
-						<th class="colum">Address</th>
-						<th class="colum">Payment Waiting</th>
-						<th class="colum">Date Begin</th>
-						<th class="colum">Type</th>
-						<th class="colum">Quantity</th>
+						<th class="text-center">Address</th>
+						<th class="text-center">Balance</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="address in addressesWaiting">
-						<td class="colum">{{address.string}} </td>
-						<td class="colum">{{address.paymentW}} </td>
-						<td class="colum">{{address.dateBegin}}</td>
-						<td class="colum">{{address.type}}</td>
-						<td class="colum">{{address.quantity}}</td>
+					<tr ng-repeat="address in addressesFree">
+						<td class="text-center"><small>{{address.string}}</small></td>
+						<td class="text-center">{{address.balance}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Payments Functions </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="func in paymentFunctions">
+						<td class="text-center">{{func.name}} </td>
+						<td><pre>{{func.code}}</pre></td>
 					</tr>
 				</tbody>
 			</table>

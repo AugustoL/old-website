@@ -18,8 +18,9 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
     if ($routeParams.categories)
         $scope.findBy.categories = { "$in" : $routeParams.categories.split(',') };
 
+    $scope.loading = true;
     publicService.getPosts($scope.findBy,$scope.page*10,'-date').then(function(promise){
-    	console.log(promise.data);
+    	$scope.loading = false;
     	if (promise.data.success){
 			$scope.posts = promise.data.posts;
             if (promise.data.lastPage){
@@ -38,7 +39,7 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
                 $routeParams.page = 0;
             break;
             case 'next':
-                $routeParams.page = parseInt($scope.pagee)+1;
+                $routeParams.page = parseInt($scope.page)+1;
             break;
             case 'last':
                 $routeParams.page = -1;

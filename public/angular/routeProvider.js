@@ -10,6 +10,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/play',{ templateUrl: '/templates/play.html', controller : 'playController' });
     $routeProvider.when('/cv',{ templateUrl: '/templates/cv.html', controller : 'cvController' });
     $routeProvider.when('/videoCall',{ templateUrl: '/templates/videoCall.html', controller : 'videoCallController' });
+    $routeProvider.when('/btcPayments',{ templateUrl: '/templates/btcPayments.html', controller : 'btcPaymentsController' });
     //Otherwise
     $routeProvider.otherwise({redirectTo: '/'});
 

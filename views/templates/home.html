@@ -2,7 +2,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 blog-main ">
-			<div class="box blog-post" ng-repeat="post in posts">
+			<div class="box blog-post" ng-show="loading">
+				<h3 class="text-center"><i class="fa fa-refresh fa-spin"></i></h3>
+			</div>
+			<div class="box blog-post" ng-show="!loading" ng-repeat="post in posts">
 				<div class="col-xs-12">
 					<div class="profilePost pull-left hidden-xs" style="background-image: url('/getImage?name={{post.img}}');"></div>
 					<div class="profilePost-small pull-left visible-xs" style="background-image: url('/getImage?name={{post.img}}');"></div>
