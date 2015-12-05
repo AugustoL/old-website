@@ -16,7 +16,6 @@ var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 //Get arguments
 var args = process.argv.slice(2);
 
-
 //Cretaing BTC-Payments
 var btcPaymentsConfig = {
     logLevel : 'debug', // none, normal, debug
@@ -39,8 +38,7 @@ BTCPayments.addOnComplete('Test',function(otherData,callback){
 BTCPayments.start();
 
 //Connect
-mongoose.connect(config.dbURI);
-var db = mongoose.connection;
+var db = mongoose.createConnection(config.dbURI);
 db.on('error', console.error.bind(console, 'connection error:'));
 
 //Once connected do actions
