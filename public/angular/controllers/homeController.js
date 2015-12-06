@@ -9,8 +9,10 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
     if ($routeParams.page && $routeParams.page != -1)
         $scope.page = $routeParams.page;
     
-    if ($routeParams.title)
-        $scope.findBy.title = {"$regex" : $routeParams.title, "$options" : "i"};
+    if ($routeParams.title){
+        $scope.findBy.titleEn = {"$regex" : $routeParams.title, "$options" : "i"};
+        $scope.findBy.titleEs = {"$regex" : $routeParams.title, "$options" : "i"};
+    }
 
     if (($routeParams.month&&$routeParams.year)&&(parseInt($routeParams.month)<13 && parseInt($routeParams.month)>0)&&(parseInt($routeParams.year)>2013))
         $scope.findBy.date = { $lt: new Date($routeParams.year+','+$routeParams.month+',31'), $gt: new Date($routeParams.year+','+(parseInt($routeParams.month)-1)+',31') }
@@ -28,7 +30,7 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
                 $routeParams.page = promise.data.lastPage;
             }
         }
-    })
+    });
 
     $scope.goPage = function(page){
         switch(page){

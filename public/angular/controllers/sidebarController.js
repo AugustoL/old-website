@@ -12,4 +12,8 @@ angular.module('ALapp.controllers').controller('sidebarController',['$scope','$w
         //console.log(promise.data);
         $scope.categories = promise.data;
     })
+
+    $scope.searchPost = function(){
+        $window.location.assign('/home?title='+$scope.titleSearch);        
+    }
 }]);

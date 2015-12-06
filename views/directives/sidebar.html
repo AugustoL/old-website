@@ -2,8 +2,10 @@
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <div id="fb-root"></div>
 <div class="sidebar-module box text-center">
-	<input class="form-control total-width searchBox" type="text" ng-model="titleSearch" placeholder="{{words.searchByTitle}}">
-	<a ng-href="/home?title={{titleSearch}}"><button type="button" class="btn btn-default">{{words.search}}</button></a>
+	<form ng-submit="searchPost()">
+		<input class="form-control total-width searchBox" type="text" ng-model="titleSearch" placeholder="{{words.searchByTitle}}">
+		<button type="submit" class="btn btn-default">{{words.search}}</button>
+	</form>	
 </div>
 <div class="sidebar-module sidebar-module-inset box">
 <a class="cursor-pointer" href="/cv"><img src="/public/img/profile.jpg" class="thumbail profile-cv"></a>
