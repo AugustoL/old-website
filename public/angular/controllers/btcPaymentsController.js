@@ -32,12 +32,12 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
 		$scope.paymentsWaiting = promise.data.payments;
 		console.log($scope.paymentsWaiting);
 	})
-	publicService.getPaymentFuctions().then(function(promise){
+	publicService.getOnCompleteFuctions().then(function(promise){
     	console.log('Payment functions:');
-    	$scope.paymentFunctions = promise.data.functions;
-		console.log($scope.paymentFunctions);
-		if ($scope.paymentFunctions[0])
-			$scope.paymentOperation = $scope.paymentFunctions[0].name;
+    	$scope.onCompleteFunctions = promise.data.functions;
+		console.log($scope.onCompleteFunctions);
+		if ($scope.onCompleteFunctions[0])
+			$scope.paymentOperation = $scope.onCompleteFunctions[0].name;
 		
 	})
 

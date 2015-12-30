@@ -34,7 +34,7 @@ module.exports = function(logger,app,db,BTCPayments){
 		app.get('/getPaymentsWaiting', module.getPaymentsWaiting);
 		app.get('/getPaymentDone', module.getPaymentDone);
 		app.get('/getPaymentWaiting', module.getPaymentWaiting);
-		app.get('/getPaymentFuctions', module.getPaymentFuctions);
+		app.get('/getOnCompleteFuctions', module.getOnCompleteFuctions);
 		app.post('/createBTCPayment', module.createBTCPayment);
     }
 
@@ -91,8 +91,7 @@ module.exports = function(logger,app,db,BTCPayments){
     // Values on query: {formDate,page}
     module.getPosts = function(req,res){
         var data = req.query;
-        logger.log('Find by1:');
-        logger.log(data.findBy);
+        logger.log('Find by: ',data.findBy);
         var toReturn = {};
         if (data.skip == -10){
             db.posts.count({}, function( err, count){
@@ -159,7 +158,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getImages = function(req,res){
         db.images.find({}).select('name').exec(function(err, images){
             if(err)
-                res.json({success : false, message : err});
+                res.json({success : false, error : err.toString()});
             else
                 res.json({success : true, images : images});
         });        
@@ -169,7 +168,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPoolAddresses = function(req,res){
         BTCPayments.getPoolAddresses(req.query.type,req.query.limit,function(err,addresses){
         	if (err)
-        		res.json({ success : false, message : err});
+        		res.json({ success : false, error : err.toString()});
         	else
         		res.json({ success : true, addresses : addresses});
         })
@@ -178,7 +177,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPaymentsDone = function(req,res){
     	BTCPayments.getPaymentsDone(req.query.limit,function(err,payments){
         	if (err)
-        		res.json({ success : false, message : err});
+        		res.json({ success : false, error : err.toString()});
         	else
         		res.json({ success : true, payments : payments});
         })
@@ -187,7 +186,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPaymentsWaiting = function(req,res){
     	BTCPayments.getPaymentsWaiting(req.query.limit,function(err,payments){
         	if (err)
-        		res.json({ success : false, message : err});
+        		res.json({ success : false, error : err.toString()});
         	else
         		res.json({ success : true, payments : payments});
         })
@@ -196,7 +195,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPaymentDone = function(req,res){
     	BTCPayments.getPaymentDone(req.query.id,function(err,payment){
         	if (err)
-        		res.json({ success : false, message : err});
+        		res.json({ success : false, error : err.toString()});
         	else
         		res.json({ success : true, payment : payment});
         })
@@ -205,14 +204,14 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPaymentWaiting = function(req,res){
     	BTCPayments.getPaymentWaiting(req.query.id,function(err,payment){
         	if (err)
-        		res.json({ success : false, message : err});
+        		res.json({ success : false, error : err.toString()});
         	else
         		res.json({ success : true, payment : payment});
         })
     }
 
-    module.getPaymentFuctions = function(req,res){
-    	var functions = BTCPayments.getPaymentFuctions();
+    module.getOnCompleteFuctions = function(req,res){
+    	var functions = BTCPayments.onCompleteFunctions();
     	var toReturn = [];
     	for (i in functions)
     		toReturn.push({
@@ -223,13 +222,10 @@ module.exports = function(logger,app,db,BTCPayments){
     }
 
     module.createBTCPayment = function(req,res){
-    	console.log(req.query);
-        var otherData = {
-            message : req.query.message
-        }
+        var otherData = { message : req.query.message }
         BTCPayments.createTX(req.query.operation,req.query.quantity,otherData,function(err,newTX){
 			if (err)
-				res.json({ success : false, message : err});
+				res.json({ success : false, error : err.toString()});
 			else
 				res.json({ success : true, newTX : newTX});
 		});

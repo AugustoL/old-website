@@ -26,7 +26,7 @@
 					<div class="form-group">
 						<label for="exampleInputFile">Operation</label>
 						<select class="form-control" ng-model="paymentOperation">
-							<option ng-repeat="op in paymentFunctions">{{op.name}}</option>
+							<option ng-repeat="op in onCompleteFunctions">{{op.name}}</option>
 						</select>
 					</div>
 				</div>
@@ -138,7 +138,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="func in paymentFunctions">
+					<tr ng-repeat="func in onCompleteFunctions">
 						<td class="text-center">{{func.name}} </td>
 						<td><pre>{{func.code}}</pre></td>
 					</tr>

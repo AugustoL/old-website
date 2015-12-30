@@ -1,5 +1,3 @@
-/****************************************************** ALL ******************************************************/
-
 html {
   position: relative;
   min-height: 100%;
@@ -94,7 +92,6 @@ a{
 }
 
 /* Images */
-
 .img{
   overflow:hidden;
 }
@@ -127,7 +124,6 @@ a{
 }
 
 /* VIDEOCALL */
-
 .video{
   margin-top: 10px;
   width: 100%;
@@ -166,9 +162,6 @@ a{
 }
 
 /* FOOTER */
-
-  
-
 footer{
   position: absolute;
   width:100%;
@@ -250,18 +243,7 @@ footer a:hover{
   cursor: pointer;
 }
 
-/* GAME */
-
-#game {
-  background-color: #000205;
-}
-canvas{
-  margin: auto;
-  clear: both;
-}
-
 /* ERROR */
-
 .big-error{
   font-size: 100px;
 }

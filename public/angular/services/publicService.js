@@ -122,10 +122,10 @@ angular.module('ALapp.services').factory('publicService', ['$http', function ($h
         });
         return promise;
     }
-	factory.getPaymentFuctions = function(){
+	factory.getOnCompleteFuctions = function(){
         var promise = $http({
             method: 'GET',
-            url: '/getPaymentFuctions'
+            url: '/getOnCompleteFuctions'
         });
         return promise;
     }
