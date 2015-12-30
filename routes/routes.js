@@ -1,4 +1,6 @@
 var async = require('async');
+var Imagemin = require('imagemin');
+var fs = require('fs');
 
 module.exports = function(logger,app,db,BTCPayments){
 
@@ -136,18 +138,26 @@ module.exports = function(logger,app,db,BTCPayments){
             if (image){
                 if (image.data.indexOf('data:image/jpeg;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/jpeg;base64,',''), 'base64');
-                    res.writeHead(200, {
-                      'Content-Type': 'image/jpeg',
-                      'Content-Length': img.length
-                    });
-                    res.end(img);
+                    new Imagemin().src(img).use(Imagemin.jpegtran({progressive: true})).run(function(err, files) {        
+                        if (err)             
+                            return next(err);        
+                        res.writeHead(200, {
+                            'Content-Type': 'image/jpeg',
+                            'Content-Length': files[0].contents.length
+                        });
+                        res.end(files[0].contents);
+                    }); 
                 } else if (image.data.indexOf('data:image/png;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/png;base64,',''), 'base64');
-                    res.writeHead(200, {
-                      'Content-Type': 'image/png',
-                      'Content-Length': img.length
-                    });
-                    res.end(img);
+                    new Imagemin().src(img).use(Imagemin.optipng({optimizationLevel: 3})).run(function(err, files) {        
+                        if (err)            
+                            return next(err);        
+                        res.writeHead(200, {
+                            'Content-Type': 'image/png',
+                            'Content-Length': files[0].contents.length
+                        });
+                        res.end(files[0].contents);
+                    }); 
                 }
             } else {
                 res.json({success : false, message :'Image dont exist'});
