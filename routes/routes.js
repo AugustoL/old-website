@@ -1,5 +1,6 @@
 var async = require('async');
 var Imagemin = require('imagemin');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 var fs = require('fs');
 
 module.exports = function(logger,app,db,BTCPayments){
@@ -138,7 +139,7 @@ module.exports = function(logger,app,db,BTCPayments){
             if (image){
                 if (image.data.indexOf('data:image/jpeg;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/jpeg;base64,',''), 'base64');
-                    new Imagemin().src(img).use(Imagemin.jpegtran({progressive: true})).run(function(err, files) {        
+                    new Imagemin().src(img).use(imageminJpegRecompress({ target : 0.88, loops : 3, max : 90 })).run(function(err, files) {        
                         if (err)             
                             return next(err);        
                         res.writeHead(200, {

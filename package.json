@@ -18,6 +18,7 @@
     "ejs": "1.0.0",
     "express": "4.2.0",
     "imagemin": "^4.0.0",
+    "imagemin-jpeg-recompress": "^4.3.0",
     "just-a-logger": "^0.1.1",
     "mongodb": "1.4.5",
     "mongoose": "4.1.8",
