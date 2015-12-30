@@ -50,6 +50,11 @@ db.once('open', function callback () {
 //Launch express
 var app = express();
 process.env.PORT = 80;
+for (var i in args) {
+    if (args[i] == '-server'){
+        process.env.PORT = 8080;
+    }
+}
 
 //Config Express
 app.set('port', process.env.PORT);
