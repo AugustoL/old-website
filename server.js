@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var async = require('async');
 var cors = require('cors');
+var compression = require('compression');
 
 //Configuration
 var config = new require('./config');
@@ -60,6 +61,7 @@ app.use(favicon(__dirname + '/public/img/handRed.ico'));
 app.use('/public',express.static('public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(compression());
 app.use(cors());
 
 //Schemas
