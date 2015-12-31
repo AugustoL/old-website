@@ -22,14 +22,18 @@ angular.module('ALapp.controllers').controller('homeController',['$scope','$wind
 
     $scope.loading = true;
     publicService.getPosts($scope.findBy,$scope.page*10,'-date').then(function(promise){
-    	$scope.loading = false;
     	if (promise.data.success){
 			$scope.posts = promise.data.posts;
+            for (var i = 0; i < $scope.posts.length; i++) {
+                $scope.posts[i].bodyEs = $scope.posts[i].bodyEs.replace(/<img .*?>/g,"");
+                $scope.posts[i].bodyEn = $scope.posts[i].bodyEn.replace(/<img .*?>/g,"");  
+            };
             if (promise.data.lastPage){
                 $scope.page = promise.data.lastPage;
                 $routeParams.page = promise.data.lastPage;
             }
         }
+        $scope.loading = false;
     });
 
     $scope.goPage = function(page){
