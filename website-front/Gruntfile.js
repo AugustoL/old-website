@@ -8,6 +8,7 @@ module.exports = function(grunt,dirname) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-chmod');
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Gruntfile.js
 
@@ -44,6 +45,16 @@ module.exports = function(grunt,dirname) {
               src: '**/*.js',
               dest: 'dist/'
           }]
+        }
+      },
+
+      ngAnnotate: {
+          build: {
+            files: [{
+                expand: true,
+                src: 'src/angular/**/*.js'
+            }
+          ]
         }
       },
 
@@ -98,7 +109,7 @@ module.exports = function(grunt,dirname) {
         },
         js: {
           files: ['src/angular/**/*.js'],
-          tasks: ['uglify']
+          tasks: ['ngAnnotate','uglify']
         },
         dev: {
           files: ['src/angular/**/*.js','src/css/*.css'],

@@ -8,12 +8,12 @@ angular.module('ALapp.services', ['LocalStorageModule']);
 angular.module('ALapp.directives', []);
 
 //LocalStorage Configuraton
-app.config(function (localStorageServiceProvider) {
+app.config(["localStorageServiceProvider", function (localStorageServiceProvider) {
   localStorageServiceProvider
     .setPrefix('augustol')
     .setStorageType('localStorage')
     .setNotify(true, true)
-});
+}]);
 
 app.filter('msToMinutes', function() {
   	 return function(millseconds) {

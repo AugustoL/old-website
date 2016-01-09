@@ -51,13 +51,15 @@ var server = app.listen(app.get('port'), function() {
 });
 
 if (process.env.appDomain != 'dev.augustolemble.com'){
+	grunt.tasks(['clean']);
+	grunt.tasks(['ngAnnotate']);
 	grunt.tasks(['uglify']);
 	grunt.tasks(['cssmin']);
 	grunt.tasks(['watch:js','watch:css']);
 } else {
-	grunt.tasks(['clean'])
-	grunt.tasks(['copy'])
-	grunt.tasks(['chmod'])
+	grunt.tasks(['clean']);
+	grunt.tasks(['copy']);
+	grunt.tasks(['chmod']);
 	grunt.tasks(['watch:dev']);
 }
 

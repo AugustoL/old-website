@@ -31,6 +31,7 @@
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-ng-annotate": "^1.0.1",
     "jshint-stylish": "latest"
   },
   "engines": {
