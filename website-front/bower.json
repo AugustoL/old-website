@@ -1,0 +1,32 @@
+{
+  "name": "CryptUse",
+  "version": "1.0",
+  "authors": [
+    "AugustoL <augusto.lemble@gmail.com>"
+  ],
+  "main": "node server.js",
+  "license": "MIT",
+  "homepage": "cryptuse.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "latest",
+    "angular-animate": "latest",
+    "angular-route": "latest",
+    "jquery-validation": "latest",
+    "angular-local-storage": "latest",
+    "bootstrap": "latest",
+    "bitcore": "~0.11.2",
+    "font-awesome": "~4.3.0",
+    "angular-socialshare": "angularjs-socialshare#~0.1.14",
+    "ng-flow": "~2"
+  }
+}

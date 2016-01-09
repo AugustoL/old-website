@@ -1,4 +1,7 @@
-node_modules
-logs/*.html
-config.js
-public/libs
+website-front/node_modules
+website-back/node_modules
+website-front/logs/*.html
+website-front/config.js
+website-front/dist/libs
+website-back/logs/*.html
+website-back/config.js
