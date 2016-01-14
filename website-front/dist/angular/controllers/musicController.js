@@ -1,30 +1,4 @@
-
-angular.module('ALapp.controllers').controller('musicController',['$scope','$window','publicService', function($scope,$window,publicService){
-    console.log("musicController init");
-    $scope.playlists = [];
-    $scope.loadingPlaylists = true;
-    publicService.getAllPlaylists().then(function(promise){
-		if (promise.data.success)
-			$scope.playlists = promise.data.body.items
-		angular.forEach($scope.playlists, function(playlist){
-			playlist.status = 'closed';
-		})
-		console.log($scope.playlists);
-		$scope.loadingPlaylists = false;
-	});
-
-	$scope.triggerPlaylist = function(playlist){
-		if(playlist.status == 'closed'){
-			playlist.status = 'loading';
-			publicService.getPlaylist(playlist.id, playlist.owner.id).then(function(promise){
-				if (promise.data.success)
-					playlist.tracks = promise.data.body.tracks.items
-				console.log(playlist.tracks[0]);
-				playlist.status = "open";
-			});
-		} else {
-			playlist.status = 'closed';
-		}
-	}
-
-}]);
+/*
+ AugustoLemble 2016-01-14 
+*/
+angular.module("ALapp.controllers").controller("musicController",["$scope","$window","publicService",function(a,b,c){console.log("musicController init"),a.playlists=[],a.loadingPlaylists=!0,c.getAllPlaylists().then(function(b){b.data.success&&(a.playlists=b.data.body.items),angular.forEach(a.playlists,function(a){a.status="closed"}),console.log(a.playlists),a.loadingPlaylists=!1}),a.triggerPlaylist=function(a){"closed"==a.status?(a.status="loading",c.getPlaylist(a.id,a.owner.id).then(function(b){b.data.success&&(a.tracks=b.data.body.tracks.items),console.log(a.tracks[0]),a.status="open"})):a.status="closed"}}]);

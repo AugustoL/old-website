@@ -9,8 +9,8 @@ var grunt = require('grunt');
 var path = require('path');
 
 //Configuration
-var config = new require('./config');
-require('./Gruntfile')(grunt,__dirname);
+var config = new require('../config');
+
 //Logger
 var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 

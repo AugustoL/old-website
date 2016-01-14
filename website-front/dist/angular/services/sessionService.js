@@ -1,35 +1,4 @@
-angular.module('ALapp.services').factory('sessionService', ['localStorageService','$http','$rootScope', function (localStorageService,$http,$rootScope) {
-
-	var factory = {};
-
-    factory.addItem = function(key, value){
-        return localStorageService.set(key, value);
-    }
-    factory.getItem = function(key, value){
-        return localStorageService.get(key);
-    }
-    factory.removeItem = function(key){
-        localStorageService.remove(key);
-    }
-
-    factory.getStrings = function(lang){
-        console.log('Getting strings');
-        if (lang && (lang == 'es' || lang == 'en')){
-            localStorageService.set('lang',lang);
-            return getWords(lang);
-        } else if (localStorageService.get('lang') == "en" || localStorageService.get('lang') == "es"){
-            return getWords(localStorageService.get('lang'))
-        } else {
-            var userLang = navigator.language || navigator.userLanguage;
-            if (userLang.indexOf("es") === 0){
-                localStorageService.set('lang','es');
-                return getWords("es");
-            } else {
-                localStorageService.set('lang','en');
-                return getWords("en");
-            }
-        }
-    }
-
-    return factory;
-}]);
+/*
+ AugustoLemble 2016-01-14 
+*/
+angular.module("ALapp.services").factory("sessionService",["localStorageService","$http","$rootScope",function(a,b,c){var d={};return d.addItem=function(b,c){return a.set(b,c)},d.getItem=function(b,c){return a.get(b)},d.removeItem=function(b){a.remove(b)},d.getStrings=function(b){if(console.log("Getting strings"),!b||"es"!=b&&"en"!=b){if("en"==a.get("lang")||"es"==a.get("lang"))return getWords(a.get("lang"));var c=navigator.language||navigator.userLanguage;return 0===c.indexOf("es")?(a.set("lang","es"),getWords("es")):(a.set("lang","en"),getWords("en"))}return a.set("lang",b),getWords(b)},d}]);

@@ -9,7 +9,7 @@ var compression = require('compression');
 var cors = require('cors');
 
 //Configuration
-var config = new require('./config');
+var config = new require('../config');
 
 //Logger
 var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
