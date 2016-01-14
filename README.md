@@ -46,7 +46,7 @@ Go to localhost:8080 and you will see the website online.
 
 ###Config nginx (Optional)
 
-To run your app over a custom domain like dev.augustolemble.com you have to add the following line on /etc/hots
+To run your app over a custom domain like dev.augustolemble.com you have to add the following line on /etc/hots:
 ```
 127.0.0.1	dev.augustolemble.com
 ```
