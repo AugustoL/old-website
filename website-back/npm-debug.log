@@ -1,0 +1,156 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'AugustoL/website-schemas' ]
+2 info using npm@3.5.2
+3 info using node@v0.12.7
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData AugustoL/website-schemas
+8 silly fetchOtherPackageData AugustoL/website-schemas
+9 silly cache add args [ 'AugustoL/website-schemas', null ]
+10 verbose cache add spec AugustoL/website-schemas
+11 silly cache add parsed spec { raw: 'AugustoL/website-schemas',
+11 silly cache add   scope: null,
+11 silly cache add   name: null,
+11 silly cache add   rawSpec: 'AugustoL/website-schemas',
+11 silly cache add   spec: 'github:augustol/website-schemas',
+11 silly cache add   type: 'hosted',
+11 silly cache add   hosted:
+11 silly cache add    { type: 'github',
+11 silly cache add      ssh: 'git@github.com:augustol/website-schemas.git',
+11 silly cache add      sshUrl: 'git+ssh://git@github.com/augustol/website-schemas.git',
+11 silly cache add      httpsUrl: 'git+https://github.com/augustol/website-schemas.git',
+11 silly cache add      gitUrl: 'git://github.com/augustol/website-schemas.git',
+11 silly cache add      shortcut: 'github:augustol/website-schemas',
+11 silly cache add      directUrl: 'https://raw.githubusercontent.com/augustol/website-schemas/master/package.json' } }
+12 verbose addRemoteGit caching AugustoL/website-schemas
+13 verbose addRemoteGit augustol/website-schemas is a repository hosted by github
+14 silly tryGitProto attempting to clone git://github.com/augustol/website-schemas.git
+15 silly tryClone cloning augustol/website-schemas via git://github.com/augustol/website-schemas.git
+16 verbose tryClone git-github-com-augustol-website-schemas-git-e08e1127 not in flight; caching
+17 verbose makeDirectory /home/blackjak/.npm/_git-remotes creation not in flight; initializing
+18 silly makeDirectory /home/blackjak/.npm/_git-remotes uid: 1000 gid: 1000
+19 info git [ 'clone',
+19 info git   '--template=/home/blackjak/.npm/_git-remotes/_templates',
+19 info git   '--mirror',
+19 info git   'git://github.com/augustol/website-schemas.git',
+19 info git   '/home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-e08e1127' ]
+20 verbose mirrorRemote augustol/website-schemas git clone git://github.com/augustol/website-schemas.git
+21 verbose setPermissions augustol/website-schemas set permissions on /home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-e08e1127
+22 verbose resolveHead augustol/website-schemas original treeish: master
+23 info git [ 'rev-list', '-n1', 'master' ]
+24 silly resolveHead augustol/website-schemas resolved treeish: eb9b7152a438a7eba47d720592d4189166e8024f
+25 verbose resolveHead augustol/website-schemas resolved Git URL: git://github.com/augustol/website-schemas.git#eb9b7152a438a7eba47d720592d4189166e8024f
+26 silly resolveHead Git working directory: /tmp/npm-12791-ed297295/git-cache-a621b80a/eb9b7152a438a7eba47d720592d4189166e8024f
+27 info git [ 'clone',
+27 info git   '/home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-e08e1127',
+27 info git   '/tmp/npm-12791-ed297295/git-cache-a621b80a/eb9b7152a438a7eba47d720592d4189166e8024f' ]
+28 verbose cloneResolved augustol/website-schemas clone Clonar en «/tmp/npm-12791-ed297295/git-cache-a621b80a/eb9b7152a438a7eba47d720592d4189166e8024f»...
+28 verbose cloneResolved hecho.
+29 info git [ 'checkout', 'eb9b7152a438a7eba47d720592d4189166e8024f' ]
+30 verbose checkoutTreeish augustol/website-schemas checkout Note: checking out 'eb9b7152a438a7eba47d720592d4189166e8024f'.
+30 verbose checkoutTreeish
+30 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+30 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+30 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+30 verbose checkoutTreeish
+30 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+30 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+30 verbose checkoutTreeish
+30 verbose checkoutTreeish   git checkout -b new_branch_name
+30 verbose checkoutTreeish
+30 verbose checkoutTreeish HEAD se encuentra en eb9b715... First commit with the schemas
+31 error addLocal Could not install /tmp/npm-12791-ed297295/git-cache-a621b80a/eb9b7152a438a7eba47d720592d4189166e8024f
+32 silly tryHTTPS attempting to clone git+https://github.com/augustol/website-schemas.git
+33 silly tryClone cloning augustol/website-schemas via git+https://github.com/augustol/website-schemas.git
+34 verbose tryClone git-https-github-com-augustol-website-schemas-git-2255a95b not in flight; caching
+35 info git [ 'clone',
+35 info git   '--template=/home/blackjak/.npm/_git-remotes/_templates',
+35 info git   '--mirror',
+35 info git   'https://github.com/augustol/website-schemas.git',
+35 info git   '/home/blackjak/.npm/_git-remotes/git-https-github-com-augustol-website-schemas-git-2255a95b' ]
+36 verbose mirrorRemote augustol/website-schemas git clone https://github.com/augustol/website-schemas.git
+37 verbose setPermissions augustol/website-schemas set permissions on /home/blackjak/.npm/_git-remotes/git-https-github-com-augustol-website-schemas-git-2255a95b
+38 verbose resolveHead augustol/website-schemas original treeish: master
+39 info git [ 'rev-list', '-n1', 'master' ]
+40 silly resolveHead augustol/website-schemas resolved treeish: eb9b7152a438a7eba47d720592d4189166e8024f
+41 verbose resolveHead augustol/website-schemas resolved Git URL: git+https://github.com/augustol/website-schemas.git#eb9b7152a438a7eba47d720592d4189166e8024f
+42 silly resolveHead Git working directory: /tmp/npm-12791-ed297295/git-cache-215706ee/eb9b7152a438a7eba47d720592d4189166e8024f
+43 info git [ 'clone',
+43 info git   '/home/blackjak/.npm/_git-remotes/git-https-github-com-augustol-website-schemas-git-2255a95b',
+43 info git   '/tmp/npm-12791-ed297295/git-cache-215706ee/eb9b7152a438a7eba47d720592d4189166e8024f' ]
+44 verbose cloneResolved augustol/website-schemas clone Clonar en «/tmp/npm-12791-ed297295/git-cache-215706ee/eb9b7152a438a7eba47d720592d4189166e8024f»...
+44 verbose cloneResolved hecho.
+45 info git [ 'checkout', 'eb9b7152a438a7eba47d720592d4189166e8024f' ]
+46 verbose checkoutTreeish augustol/website-schemas checkout Note: checking out 'eb9b7152a438a7eba47d720592d4189166e8024f'.
+46 verbose checkoutTreeish
+46 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+46 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+46 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+46 verbose checkoutTreeish
+46 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+46 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+46 verbose checkoutTreeish
+46 verbose checkoutTreeish   git checkout -b new_branch_name
+46 verbose checkoutTreeish
+46 verbose checkoutTreeish HEAD se encuentra en eb9b715... First commit with the schemas
+47 error addLocal Could not install /tmp/npm-12791-ed297295/git-cache-215706ee/eb9b7152a438a7eba47d720592d4189166e8024f
+48 silly trySSH attempting to clone git@github.com:augustol/website-schemas.git
+49 silly tryClone cloning augustol/website-schemas via git@github.com:augustol/website-schemas.git
+50 verbose tryClone git-github-com-augustol-website-schemas-git-46a5cd68 not in flight; caching
+51 info git [ 'clone',
+51 info git   '--template=/home/blackjak/.npm/_git-remotes/_templates',
+51 info git   '--mirror',
+51 info git   'git@github.com:augustol/website-schemas.git',
+51 info git   '/home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-46a5cd68' ]
+52 verbose mirrorRemote augustol/website-schemas git clone git@github.com:augustol/website-schemas.git
+53 verbose setPermissions augustol/website-schemas set permissions on /home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-46a5cd68
+54 verbose resolveHead augustol/website-schemas original treeish: master
+55 info git [ 'rev-list', '-n1', 'master' ]
+56 silly resolveHead augustol/website-schemas resolved treeish: eb9b7152a438a7eba47d720592d4189166e8024f
+57 verbose resolveHead augustol/website-schemas resolved Git URL: git+ssh://git@github.com/augustol/website-schemas.git#eb9b7152a438a7eba47d720592d4189166e8024f
+58 silly resolveHead Git working directory: /tmp/npm-12791-ed297295/git-cache-3f695170/eb9b7152a438a7eba47d720592d4189166e8024f
+59 info git [ 'clone',
+59 info git   '/home/blackjak/.npm/_git-remotes/git-github-com-augustol-website-schemas-git-46a5cd68',
+59 info git   '/tmp/npm-12791-ed297295/git-cache-3f695170/eb9b7152a438a7eba47d720592d4189166e8024f' ]
+60 verbose cloneResolved augustol/website-schemas clone Clonar en «/tmp/npm-12791-ed297295/git-cache-3f695170/eb9b7152a438a7eba47d720592d4189166e8024f»...
+60 verbose cloneResolved hecho.
+61 info git [ 'checkout', 'eb9b7152a438a7eba47d720592d4189166e8024f' ]
+62 verbose checkoutTreeish augustol/website-schemas checkout Note: checking out 'eb9b7152a438a7eba47d720592d4189166e8024f'.
+62 verbose checkoutTreeish
+62 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+62 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+62 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+62 verbose checkoutTreeish
+62 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+62 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+62 verbose checkoutTreeish
+62 verbose checkoutTreeish   git checkout -b new_branch_name
+62 verbose checkoutTreeish
+62 verbose checkoutTreeish HEAD se encuentra en eb9b715... First commit with the schemas
+63 error addLocal Could not install /tmp/npm-12791-ed297295/git-cache-3f695170/eb9b7152a438a7eba47d720592d4189166e8024f
+64 silly fetchPackageMetaData Error: EISDIR, read
+64 silly fetchPackageMetaData     at Error (native)
+64 silly fetchPackageMetaData  error for AugustoL/website-schemas { [Error: EISDIR, read] errno: -21, code: 'EISDIR' }
+65 silly rollbackFailedOptional Starting
+66 silly rollbackFailedOptional Finishing
+67 silly runTopLevelLifecycles Starting
+68 silly runTopLevelLifecycles Finishing
+69 silly install printInstalled
+70 verbose stack Error: EISDIR, read
+70 verbose stack     at Error (native)
+71 verbose cwd /home/blackjak/Escritorio/AugustoLemble/website/website-back
+72 error Linux 3.16.0-38-generic
+73 error argv "node" "/usr/local/bin/npm" "install" "AugustoL/website-schemas"
+74 error node v0.12.7
+75 error npm  v3.5.2
+76 error code EISDIR
+77 error errno -21
+78 error eisdir EISDIR, read
+79 error eisdir This is most likely not a problem with npm itself
+79 error eisdir and is related to npm not being able to find a package.json in
+79 error eisdir a package you are trying to install.
+80 verbose exit [ -21, true ]

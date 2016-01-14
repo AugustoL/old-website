@@ -1,9 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-module.exports = function(db,logger) {
+module.exports = function(db,mongoose) {
 	
-	var post = new Schema({
+	var post = new mongoose.Schema({
 		titleEs : String,
 		titleEn : String,
 		categories : [String], // travel,music,bitcoin,linux,programing,other,games,movies,series

@@ -1,9 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-module.exports = function(db,logger) {
+module.exports = function(db,mongoose) {
 	
-	var category = new Schema({
+	var category = new mongoose.Schema({
 		nameEn : String,
 		nameEs : String,
 		quantity : Number

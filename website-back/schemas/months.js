@@ -1,9 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+module.exports = function(db,mongoose) {
 
-module.exports = function(db,logger) {
-
-	var month = new Schema({
+	var month = new mongoose.Schema({
 		name : String,
 		date : Date,
 		quantity : Number

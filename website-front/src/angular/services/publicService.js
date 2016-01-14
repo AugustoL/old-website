@@ -1,7 +1,7 @@
 
 angular.module('ALapp.services').factory('publicService', ['$http','$window', function ($http,$window) {
 
-    var backendDomain = "http://"+$window.location.host+":3000";
+    var backendDomain = "http://"+$window.location.hostname+":3000";
     var factory = {};
 
     //Get Posts

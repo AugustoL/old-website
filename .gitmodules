@@ -1,0 +1,3 @@
+[submodule "website-back/website-schemas"]
+	path = website-back/schemas
+	url = https://github.com/AugustoL/website-schemas

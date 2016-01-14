@@ -23,7 +23,6 @@ var app = express();
 process.env.PORT = 8080;
 for (var i in args) {
     if (args[i] == '-dev'){
-        process.env.PORT = 80;
         process.env.appDomain = 'dev.augustolemble.com';
     }
 }
