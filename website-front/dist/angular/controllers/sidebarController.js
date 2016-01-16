@@ -1,4 +1,19 @@
-/*
- AugustoLemble 2016-01-14 
-*/
-angular.module("ALapp.controllers").controller("sidebarController",["$scope","$window","publicService","sessionService",function(a,b,c,d){console.log("sidebarController init"),a.words=d.getStrings(),c.getMonths().then(function(b){a.months=b.data}),c.getCategories().then(function(b){a.categories=b.data}),a.searchPost=function(){b.location.assign("/home?title="+a.titleSearch)}}]);
+
+angular.module('ALapp.controllers').controller('sidebarController',['$scope','$window','publicService','sessionService', function($scope,$window,publicService,sessionService){
+    console.log("sidebarController init");
+    $scope.words = sessionService.getStrings();
+
+    publicService.getMonths().then(function(promise){
+        //console.log(promise.data);
+        $scope.months = promise.data;
+    })
+
+    publicService.getCategories().then(function(promise){
+        //console.log(promise.data);
+        $scope.categories = promise.data;
+    })
+
+    $scope.searchPost = function(){
+        $window.location.assign('/home?title='+$scope.titleSearch);        
+    }
+}]);

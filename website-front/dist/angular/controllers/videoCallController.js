@@ -1,4 +1,118 @@
-/*
- AugustoLemble 2016-01-14 
-*/
-angular.module("ALapp.controllers").controller("videoCallController",["$scope","sessionService",function(a,b){function c(a,b){navigator.getUserMedia({audio:!0,video:!0},a,b)}function d(b){console.log("peer is calling..."),console.log(b),c(function(a){f(a),b.answer(a),console.log("answering call started..."),$("#stopBtn").prop("disabled",!1)},function(a){console.log("an error occured while getting the video"),console.log(a)}),b.on("stream",e),g.on("disconnected",function(a){g.disconnect(),console.log("Videocall was disconnected")}),g.on("data",function(b){a.addMessage(b)})}function e(a){var b=document.querySelector("#otherVideo");b.src=window.URL.createObjectURL(a),b.onloadedmetadata=function(){console.log("receivedVideo loaded")}}function f(a){var b=document.querySelector("#myVideo");b.src=window.URL.createObjectURL(a),b.onloadedmetadata=function(){console.log("sentVideo loaded")}}console.log("videoCallController init"),a.words=b.getStrings(),navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;var g=new Peer({host:"159.203.83.144",port:80,path:"/peerapi/"});a.myID="",a.readyToCall=!1,a.callActive=!0,g.on("open",function(b){a.readyToCall=!0,a.myID=b,console.log("My id: "+a.myID),$("#idMessage").text("Your ID to receive calls is "+b)}),g.on("call",d),a.startCall=function(){console.log("starting call..."),c(function(a){f(a),console.log("Now calling "+$("#callTo").val());var b=g.call($("#callTo").val(),a);b.on("stream",e),$("#stopBtn").prop("disabled",!1)},function(a){console.log("an error occured while getting the video"),console.log(a)}),g.on("disconnected",function(a){g.disconnect(),console.log("Videocall was disconnected")}),g.on("data",function(b){a.addMessage(b)})},a.stopCall=function(){console.log("Disconnecting.."),g.disconnect(),$("#stopBtn").prop("disabled",!0),document.querySelector("#myVideo").src="",document.querySelector("#otherVideo").src=""},g.on("connection",function(b){a.callActive=!0}),a.addMessage=function(b){console.log(a.message),g.send(a.message),$("#chatBox").append('<div class="chat-message"><span>You: </span>'+b+"</div>");var c=0;$(".chat-message").each(function(a){c+=$(this)[0].clientHeight}),$("#chatBox").scrollTop(c)},a.sendMessage=function(){g.send(a.message),a.addMessage(a.message)}}]);
+angular.module('ALapp.controllers').controller('videoCallController',['$scope','sessionService', function($scope,sessionService){
+	console.log("videoCallController init");
+	$scope.words = sessionService.getStrings();
+	//var peer = new Peer({key: '426byzgxlq9w9udi'});
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    var peer = new Peer({host: '159.203.83.144', port: 80, path: '/peerapi/'});
+
+    $scope.myID = '';
+    $scope.readyToCall = false;
+    $scope.callActive = true;
+
+    peer.on('open', function(id) {
+    	$scope.readyToCall = true;
+    	$scope.myID = id;
+    	console.log('My id: '+$scope.myID)
+    	$('#idMessage').text('Your ID to receive calls is '+id);
+	});
+    peer.on('call', onReceiveCall);
+
+    $scope.startCall = function() {
+	    console.log('starting call...');
+	    getVideo(
+	        function(MediaStream){
+	        	myStream(MediaStream);
+	            console.log('Now calling ' + $('#callTo').val());
+	            var call = peer.call($('#callTo').val(), MediaStream);
+	            call.on('stream', receivedStream);
+	            $('#stopBtn').prop('disabled',false);
+	        },
+	        function(err){
+	            console.log('an error occured while getting the video');
+	            console.log(err);
+	        }
+	    );
+	    peer.on('disconnected', function(id) {
+	    	peer.disconnect();
+	    	console.log('Videocall was disconnected');
+		});
+		peer.on('data', function(data) {
+		    $scope.addMessage(data);
+		});
+	};
+
+	$scope.stopCall = function() {
+		console.log('Disconnecting..');
+		peer.disconnect();
+		$('#stopBtn').prop('disabled',true);
+		document.querySelector('#myVideo').src = "";
+		document.querySelector('#otherVideo').src = "";
+	}
+
+    function getVideo(successCallback, errorCallback){
+	    navigator.getUserMedia({audio: true, video: true}, successCallback, errorCallback);
+	}
+
+	function onReceiveCall(call){
+	    console.log('peer is calling...');
+	    console.log(call);
+	    getVideo(
+	        function(MediaStream){
+	        	myStream(MediaStream);
+	            call.answer(MediaStream);
+	            console.log('answering call started...');
+	            $('#stopBtn').prop('disabled',false);
+	        },
+	        function(err){
+	            console.log('an error occured while getting the video');
+	            console.log(err);
+	        }
+	    );
+	    call.on('stream', receivedStream);
+	    peer.on('disconnected', function(id) {
+	    	peer.disconnect();
+	    	console.log('Videocall was disconnected');
+		});
+		peer.on('data', function(data) {
+		    $scope.addMessage(data);
+		});
+	}
+
+	function receivedStream(stream){
+	    var receivedVideo = document.querySelector('#otherVideo')
+	    receivedVideo.src = window.URL.createObjectURL(stream);
+	    receivedVideo.onloadedmetadata = function(){
+	        console.log('receivedVideo loaded');
+	    };
+	}
+
+	function myStream(stream){
+	    var sentVideo = document.querySelector('#myVideo');
+	    sentVideo.src = window.URL.createObjectURL(stream);
+	    sentVideo.onloadedmetadata = function(){
+	        console.log('sentVideo loaded');
+	    };
+	    
+	}
+
+	peer.on('connection', function(dataConnection) { 
+		$scope.callActive = true;
+	});
+
+	
+	$scope.addMessage = function(message) {
+		console.log($scope.message);
+		peer.send($scope.message);
+		$('#chatBox').append('<div class="chat-message"><span>You: </span>' + message + '</div>');
+		var height = 0;
+		$( ".chat-message" ).each(function( index ) {
+		  	height = height + $(this)[0].clientHeight;
+		});
+		$('#chatBox').scrollTop(height);
+	}
+
+	$scope.sendMessage = function() {
+		peer.send($scope.message);
+		$scope.addMessage($scope.message);
+	}
+}]);

@@ -4,8 +4,9 @@ angular.module('ALapp.controllers').controller('postController',['$scope','$rout
     $scope.language = $scope.words.language;
     if ($routeParams.id){
     	publicService.getPost($routeParams.id).then(function(promise){
+            console.log(promise);
             if (promise.data.success&&!promise.data.post.draft)
-                $scope.post = promise.data.post;
+                $scope.post = angular.fromJson(promise.data.post);
             else
                 $location.path('/home');
     	})

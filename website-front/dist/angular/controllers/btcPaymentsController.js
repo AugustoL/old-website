@@ -1,4 +1,51 @@
-/*
- AugustoLemble 2016-01-14 
-*/
-angular.module("ALapp.controllers").controller("btcPaymentsController",["$scope","sessionService","publicService","$window",function(a,b,c,d){console.log("btcPaymentsController init"),a.words=b.getStrings(),a.language=a.words.language,a.paymentsWaiting=[],a.paymentsDone=[],a.addressesFree=[],a.addressesWaiting=[],a.paymenstFunctions=[],a.paymentQuantity=.001,a.paymentOperation="",a.paymentMessage="",c.getAddressesWaiting().then(function(b){console.log("Addresses waiting:"),a.addressesWaiting=b.data.addresses,console.log(a.addressesWaiting)}),c.getAddressesFree().then(function(b){console.log("Addresses free:"),a.addressesFree=b.data.addresses,console.log(a.addressesFree)}),c.getPaymentsDone().then(function(b){console.log("Payments done:"),a.paymentsDone=b.data.payments,console.log(a.paymentsDone)}),c.getPaymentsWaiting().then(function(b){console.log("Payments waiting:"),a.paymentsWaiting=b.data.payments,console.log(a.paymentsWaiting)}),c.getOnCompleteFuctions().then(function(b){console.log("Payment functions:"),a.onCompleteFunctions=b.data.functions,console.log(a.onCompleteFunctions),a.onCompleteFunctions[0]&&(a.paymentOperation=a.onCompleteFunctions[0].name)}),a.createPayment=function(){c.createBTCPayment(a.paymentOperation,a.paymentQuantity,a.paymentMessage).then(function(a){a.data.success&&d.location.reload()})}}]);
+
+angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope','sessionService','publicService','$window', function($scope,sessionService,publicService,$window){
+    console.log("btcPaymentsController init");
+    $scope.words = sessionService.getStrings();
+    $scope.language = $scope.words.language;
+    $scope.paymentsWaiting = [];
+    $scope.paymentsDone = [];
+    $scope.addressesFree = [];
+    $scope.addressesWaiting = [];
+    $scope.paymenstFunctions = [];
+    $scope.paymentQuantity = 0.001;
+    $scope.paymentOperation = "";
+    $scope.paymentMessage = "";
+
+    publicService.getAddressesWaiting().then(function(promise){
+    	console.log('Addresses waiting:');
+    	$scope.addressesWaiting = promise.data.addresses;
+    	console.log($scope.addressesWaiting);
+    })
+    publicService.getAddressesFree().then(function(promise){
+  	    console.log('Addresses free:');
+    	$scope.addressesFree = promise.data.addresses;
+    	console.log($scope.addressesFree);
+    })
+	publicService.getPaymentsDone().then(function(promise){
+    	console.log('Payments done:');
+		$scope.paymentsDone = promise.data.payments;
+		console.log($scope.paymentsDone);
+	})
+	publicService.getPaymentsWaiting().then(function(promise){
+    	console.log('Payments waiting:');
+		$scope.paymentsWaiting = promise.data.payments;
+		console.log($scope.paymentsWaiting);
+	})
+	publicService.getOnCompleteFuctions().then(function(promise){
+    	console.log('Payment functions:');
+    	$scope.onCompleteFunctions = promise.data.functions;
+		console.log($scope.onCompleteFunctions);
+		if ($scope.onCompleteFunctions[0])
+			$scope.paymentOperation = $scope.onCompleteFunctions[0].name;
+		
+	})
+
+	$scope.createPayment = function(){
+		publicService.createBTCPayment($scope.paymentOperation,$scope.paymentQuantity,$scope.paymentMessage).then(function(promise){
+			if (promise.data.success)
+				$window.location.reload();		
+		})
+	}
+}]);
+

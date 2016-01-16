@@ -76,7 +76,7 @@ module.exports = function(logger,app,db,BTCPayments){
     module.getPost = function(req,res){
         var data = req.query;
         logger.log('Getting post '+data.id);
-        db.posts.findOne({'_id' : new mongoose.Types.ObjectId(data.id)}, {}, function (err, post) {
+        db.posts.findOne({ '_id' : new mongoose.Types.ObjectId(data.id)}, {}, function (err, post) {
             if (err)
                 res.json({success : false, message : err.toString() });
             else
