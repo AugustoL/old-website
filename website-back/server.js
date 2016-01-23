@@ -20,20 +20,31 @@ var args = process.argv.slice(2);
 //Cretaing BTC-Payments
 var btcPaymentsConfig = {
     logLevel : 'debug', // none, normal, debug
-    dbURI : 'mongodb://user:user@ds043694.mongolab.com:43694/btcpayments', //URI to use to connect to db
-    network : 'testnet', // testnet or livenet
-    seedBytes : "testingseed23", // String of the seed master key
+    dbURI : config.dbURI,
+    network : 'testnet',
+    seedBytes : "testingseed23",
     btcMainAddress : "mqyp4A44N1ekc2LzoAjasMo4SToZUrwfrG", // Address to receive the payments
-    paymentTimeout : 120, // In minutes
+    paymentTimeout : 120,
     limitBalance : 0.01,
     txFee : 0.0001,
-    functionTimeout : 10 // In seconds
+    functionTimeout : 10, 
+    warningTimeout : 30
 };
-var BTCPayments = new require('btc-payments')(btcPaymentsConfig,[]);
+var BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[],[]);
 
-BTCPayments.addOnComplete('Test',function(otherData,callback){
-	logger.log('Type one tx done');
-    logger.log('Message in otherData: '+otherData.message);
+BTCPayments.addOnComplete('Test',function(payment,callback){
+	logger.log('Type Test tx done');
+    logger.log('Message in otherData: '+payment.otherData.message);
+    callback(null,'Success');
+});
+BTCPayments.addOnCancel('Test',function(payment,callback){
+    logger.log('Type Test tx canceled');
+    logger.log('Message in otherData: '+payment.otherData.message);
+    callback(null,'Success');
+});
+BTCPayments.addOnWarning('Test',function(payment,callback){
+    logger.log('Type one tx warned');
+    logger.log('Message in otherData: '+payment.otherData.message);
     callback(null,'Success');
 });
 BTCPayments.start();

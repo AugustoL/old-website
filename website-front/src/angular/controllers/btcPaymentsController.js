@@ -7,10 +7,12 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
     $scope.paymentsDone = [];
     $scope.addressesFree = [];
     $scope.addressesWaiting = [];
-    $scope.paymenstFunctions = [];
     $scope.paymentQuantity = 0.001;
     $scope.paymentOperation = "";
     $scope.paymentMessage = "";
+    $scope.onCompleteFunctions = [];
+    $scope.onWarningFunctions = [];
+    $scope.onCancelFunctions = [];
 
     publicService.getAddressesWaiting().then(function(promise){
     	console.log('Addresses waiting:');
@@ -32,14 +34,23 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
 		$scope.paymentsWaiting = promise.data.payments;
 		console.log($scope.paymentsWaiting);
 	})
-	publicService.getOnCompleteFuctions().then(function(promise){
-    	console.log('Payment functions:');
+	publicService.getOnCompleteFunctions().then(function(promise){
+    	console.log('Payment complete functions:');
     	$scope.onCompleteFunctions = promise.data.functions;
 		console.log($scope.onCompleteFunctions);
 		if ($scope.onCompleteFunctions[0])
-			$scope.paymentOperation = $scope.onCompleteFunctions[0].name;
-		
+			$scope.paymentOperation = $scope.onCompleteFunctions[0].name;	
 	})
+    publicService.getOnWarningFunctions().then(function(promise){
+        console.log('Payment warning functions:');
+        $scope.onWarningFunctions = promise.data.functions;
+        console.log($scope.onWarningFunctions);
+    })
+    publicService.getOnCancelFunctions().then(function(promise){
+        console.log('Payment cancel functions:');
+        $scope.onCancelFunctions = promise.data.functions;
+        console.log($scope.onCancelFunctions);  
+    })
 
 	$scope.createPayment = function(){
 		publicService.createBTCPayment($scope.paymentOperation,$scope.paymentQuantity,$scope.paymentMessage).then(function(promise){

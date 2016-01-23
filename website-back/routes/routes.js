@@ -2,6 +2,7 @@ var Imagemin = require('imagemin');
 var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 var fs = require('fs');
 var mongoose = require('mongoose');
+var sendgrid  = require('sendgrid')("augustolemble", "lemblenaitor8");
 
 module.exports = function(logger,app,db,BTCPayments){
 
@@ -23,7 +24,9 @@ module.exports = function(logger,app,db,BTCPayments){
 		app.get('/getPaymentsWaiting', module.getPaymentsWaiting);
 		app.get('/getPaymentDone', module.getPaymentDone);
 		app.get('/getPaymentWaiting', module.getPaymentWaiting);
-		app.get('/getOnCompleteFuctions', module.getOnCompleteFuctions);
+		app.get('/getOnCompleteFunctions', module.getOnCompleteFunctions);
+        app.get('/getOnCancelFunctions', module.getOnCancelFunctions);
+        app.get('/getOnWarningFunctions', module.getOnWarningFunctions);
 		app.post('/createBTCPayment', module.createBTCPayment);
     }
 
@@ -175,7 +178,7 @@ module.exports = function(logger,app,db,BTCPayments){
         })
     }
 
-    module.getOnCompleteFuctions = function(req,res){
+    module.getOnCompleteFunctions = function(req,res){
     	var functions = BTCPayments.onCompleteFunctions();
     	var toReturn = [];
     	for (i in functions)
@@ -186,15 +189,49 @@ module.exports = function(logger,app,db,BTCPayments){
         res.json({ success : true, functions : toReturn});
     }
 
+    module.getOnCancelFunctions = function(req,res){
+        var functions = BTCPayments.onCancelFunctions();
+        var toReturn = [];
+        for (i in functions)
+            toReturn.push({
+                name : i,
+                code : functions[i].toString()
+            })
+        res.json({ success : true, functions : toReturn});
+    }
+
+    module.getOnWarningFunctions = function(req,res){
+        var functions = BTCPayments.onWarningFunctions();
+        var toReturn = [];
+        for (i in functions)
+            toReturn.push({
+                name : i,
+                code : functions[i].toString()
+            })
+        res.json({ success : true, functions : toReturn});
+    }
+
     module.createBTCPayment = function(req,res){
-        var otherData = { message : req.query.message }
-        BTCPayments.createTX(req.query.operation,req.query.quantity,otherData,function(err,newTX){
+        BTCPayments.createTX(req.query.operation,req.query.quantity,{ message : req.query.message },function(err,newTX){
 			if (err)
 				res.json({ success : false, error : err.toString()});
 			else
 				res.json({ success : true, newTX : newTX});
 		});
-}
+    }
+
+    sendgrid.send({
+        to : 'augusto.lemble@gmail.com',
+            from : 'email@augustolemble.com',
+            subject : 'Test email',
+            html : "TEST"
+        }, function(err, json) {
+            if (err) { 
+                logger.error(err.toString());
+            } else {
+                logger.important('Email Sent'); 
+            }
+    });
 
     return module;
 

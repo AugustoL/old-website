@@ -123,10 +123,24 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         });
         return promise;
     }
-	factory.getOnCompleteFuctions = function(){
+	factory.getOnCompleteFunctions = function(){
         var promise = $http({
             method: 'GET',
-            url: backendDomain+'/getOnCompleteFuctions'
+            url: backendDomain+'/getOnCompleteFunctions'
+        });
+        return promise;
+    }
+    factory.getOnCancelFunctions = function(){
+        var promise = $http({
+            method: 'GET',
+            url: backendDomain+'/getOnCancelFunctions'
+        });
+        return promise;
+    }
+    factory.getOnWarningFunctions = function(){
+        var promise = $http({
+            method: 'GET',
+            url: backendDomain+'/getOnWarningFunctions'
         });
         return promise;
     }

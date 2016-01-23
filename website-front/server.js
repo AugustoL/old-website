@@ -21,11 +21,9 @@ var args = process.argv.slice(2);
 process.env.appDomain = 'augustolemble.com';
 var app = express();
 process.env.PORT = 8080;
-for (var i in args) {
-    if (args[i] == '-dev'){
-        process.env.appDomain = 'dev.augustolemble.com';
-    }
-}
+
+if (args.indexOf('-dev') >= 0)
+    process.env.appDomain = 'dev.augustolemble.com';
 
 //Config Express
 app.set('port', process.env.PORT);

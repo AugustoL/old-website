@@ -46,6 +46,7 @@
 						<th class="text-center">To Address</th>
 						<th class="text-center">Date Begin</th>
 						<th class="text-center">Operation</th>
+						<th class="text-center">Warned</th>
 						<th class="text-center">Quantity</th>
 					</tr>
 				</thead>
@@ -54,6 +55,7 @@
 						<td class="text-center"><small>{{paymentW.toAddress}}</small></td>
 						<td class="text-center">{{paymentW.dateBegin | date:'short'}}</td>
 						<td class="text-center">{{paymentW.opName}}</td>
+						<td class="text-center">{{paymentW.warned}}</td>
 						<td class="text-center">{{paymentW.quantity}}</td>
 					</tr>
 				</tbody>
@@ -129,7 +131,7 @@
 	</div>
 	<div class="row" ng-show="!loadingData">
 		<div class="box col-xs-12">
-			<h3 class="text-center"> Payments Functions </h3>
+			<h3 class="text-center"> Payments onComplete Functions </h3>
 			<table class="table table-hover hidden-xs">
 				<thead>
 					<tr>
@@ -138,9 +140,47 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="func in onCompleteFunctions">
-						<td class="text-center">{{func.name}} </td>
-						<td><pre>{{func.code}}</pre></td>
+					<tr ng-repeat="onCompleteFunction in onCompleteFunctions">
+						<td class="text-center">{{onCompleteFunction.name}} </td>
+						<td><pre>{{onCompleteFunction.code}}</pre></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Payments onCancel Functions </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="onCancelFunction in onCancelFunctions">
+						<td class="text-center">{{onCancelFunction.name}} </td>
+						<td><pre>{{onCancelFunction.code}}</pre></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Payments onWarning Functions </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="onWarningFunction in onWarningFunctions">
+						<td class="text-center">{{onWarningFunction.name}} </td>
+						<td><pre>{{onWarningFunction.code}}</pre></td>
 					</tr>
 				</tbody>
 			</table>
