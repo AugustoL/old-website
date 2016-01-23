@@ -3,4 +3,6 @@ website-back/node_modules
 website-front/logs/*.html
 website-front/dist/libs
 website-back/logs/*.html
+website-back/dist
+website-back/dist
 config.js
