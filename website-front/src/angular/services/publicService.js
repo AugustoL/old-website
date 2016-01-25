@@ -123,6 +123,13 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         });
         return promise;
     }
+    factory.getOnCreateFunctions = function(){
+        var promise = $http({
+            method: 'GET',
+            url: backendDomain+'/getOnCreateFunctions'
+        });
+        return promise;
+    }
 	factory.getOnCompleteFunctions = function(){
         var promise = $http({
             method: 'GET',
@@ -144,11 +151,11 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         });
         return promise;
     }
-    factory.createBTCPayment = function(operation,quantity,message){
+    factory.createBTCPayment = function(operation,quantity,email){
         var promise = $http({
             method: 'POST',
             url: backendDomain+'/createBTCPayment',
-            params: { operation : operation, quantity : quantity, message : message}
+            params: { operation : operation, quantity : quantity, email : email}
         });
         return promise;
     }

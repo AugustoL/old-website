@@ -2,9 +2,8 @@ var Imagemin = require('imagemin');
 var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 var fs = require('fs');
 var mongoose = require('mongoose');
-var sendgrid  = require('sendgrid')("augustolemble", "lemblenaitor8");
 
-module.exports = function(logger,app,db,BTCPayments){
+module.exports = function(logger,app,db){
 
     var module = {};
 
@@ -17,17 +16,7 @@ module.exports = function(logger,app,db,BTCPayments){
         app.get('/getCategories', module.getCategories);
         app.get('/getImage', module.getImage);
         app.get('/getImages', module.getImages);
-
-        //BTC-Payments
-        app.get('/getPoolAddresses', module.getPoolAddresses);
-		app.get('/getPaymentsDone', module.getPaymentsDone);
-		app.get('/getPaymentsWaiting', module.getPaymentsWaiting);
-		app.get('/getPaymentDone', module.getPaymentDone);
-		app.get('/getPaymentWaiting', module.getPaymentWaiting);
-		app.get('/getOnCompleteFunctions', module.getOnCompleteFunctions);
-        app.get('/getOnCancelFunctions', module.getOnCancelFunctions);
-        app.get('/getOnWarningFunctions', module.getOnWarningFunctions);
-		app.post('/createBTCPayment', module.createBTCPayment);
+        
     }
 
     // Get months 
@@ -131,107 +120,6 @@ module.exports = function(logger,app,db,BTCPayments){
                 res.json({success : true, images : images});
         });        
     }
-
-    //BTC-Payments
-    module.getPoolAddresses = function(req,res){
-        BTCPayments.getPoolAddresses(req.query.type,req.query.limit,function(err,addresses){
-        	if (err)
-        		res.json({ success : false, error : err.toString()});
-        	else
-        		res.json({ success : true, addresses : addresses});
-        })
-    }
-
-    module.getPaymentsDone = function(req,res){
-    	BTCPayments.getPaymentsDone(req.query.limit,function(err,payments){
-        	if (err)
-        		res.json({ success : false, error : err.toString()});
-        	else
-        		res.json({ success : true, payments : payments});
-        })
-    }
-
-    module.getPaymentsWaiting = function(req,res){
-    	BTCPayments.getPaymentsWaiting(req.query.limit,function(err,payments){
-        	if (err)
-        		res.json({ success : false, error : err.toString()});
-        	else
-        		res.json({ success : true, payments : payments});
-        })
-    }
-
-    module.getPaymentDone = function(req,res){
-    	BTCPayments.getPaymentDone(req.query.id,function(err,payment){
-        	if (err)
-        		res.json({ success : false, error : err.toString()});
-        	else
-        		res.json({ success : true, payment : payment});
-        })
-    }
-
-    module.getPaymentWaiting = function(req,res){
-    	BTCPayments.getPaymentWaiting(req.query.id,function(err,payment){
-        	if (err)
-        		res.json({ success : false, error : err.toString()});
-        	else
-        		res.json({ success : true, payment : payment});
-        })
-    }
-
-    module.getOnCompleteFunctions = function(req,res){
-    	var functions = BTCPayments.onCompleteFunctions();
-    	var toReturn = [];
-    	for (i in functions)
-    		toReturn.push({
-    			name : i,
-    			code : functions[i].toString()
-    		})
-        res.json({ success : true, functions : toReturn});
-    }
-
-    module.getOnCancelFunctions = function(req,res){
-        var functions = BTCPayments.onCancelFunctions();
-        var toReturn = [];
-        for (i in functions)
-            toReturn.push({
-                name : i,
-                code : functions[i].toString()
-            })
-        res.json({ success : true, functions : toReturn});
-    }
-
-    module.getOnWarningFunctions = function(req,res){
-        var functions = BTCPayments.onWarningFunctions();
-        var toReturn = [];
-        for (i in functions)
-            toReturn.push({
-                name : i,
-                code : functions[i].toString()
-            })
-        res.json({ success : true, functions : toReturn});
-    }
-
-    module.createBTCPayment = function(req,res){
-        BTCPayments.createTX(req.query.operation,req.query.quantity,{ message : req.query.message },function(err,newTX){
-			if (err)
-				res.json({ success : false, error : err.toString()});
-			else
-				res.json({ success : true, newTX : newTX});
-		});
-    }
-
-    sendgrid.send({
-        to : 'augusto.lemble@gmail.com',
-            from : 'email@augustolemble.com',
-            subject : 'Test email',
-            html : "TEST"
-        }, function(err, json) {
-            if (err) { 
-                logger.error(err.toString());
-            } else {
-                logger.important('Email Sent'); 
-            }
-    });
 
     return module;
 

@@ -8,23 +8,28 @@
 	</div>
 	<div class="row" ng-show="!loadingData">
 		<div class="box col-xs-12">
+			BTCPayments its working over Testnet, using mqyp4A44N1ekc2LzoAjasMo4SToZUrwfrG as main address,a with paymentTimeout of 120 minutes,a limitBalance of 0001 BTC,a txFee of 0.0001 BTC,a functionTimeout of 10 seconds and a warningTimeout of 30 minutes.
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
 			<h3 class="text-center"> Create Payment </h3>
 			<div class="row">
 				<div class="col-xs-4 text-center">
-					<div class="form-group">
-						<label for="exampleInputFile">Extra message</label><br>
-						<input name="paymentMessage" ng-model="paymentMessage" type="text">
+					<div class="form-group" id="emailInput">
+						<label >Email</label><br>
+						<input class="form-control" name="paymentEmail" ng-model="paymentEmail" type="text">
 					</div>
 				</div>
 				<div class="col-xs-3 text-center">
 					<div class="form-group">
-						<label for="exampleInputFile">BTC Quantity</label><br>
-						<input name="paymentQuantity" ng-model="paymentQuantity" type="number" min="0,0000001" max="1" step="0.0001">
+						<label >BTC Quantity</label><br>
+						<input class="form-control" name="paymentQuantity" ng-model="paymentQuantity" type="number" min="0,0000001" max="1" step="0.0001">
 					</div>
 				</div>
 				<div class="col-xs-2 text-center">
 					<div class="form-group">
-						<label for="exampleInputFile">Operation</label>
+						<label >Operation</label>
 						<select class="form-control" ng-model="paymentOperation">
 							<option ng-repeat="op in onCompleteFunctions">{{op.name}}</option>
 						</select>
@@ -69,7 +74,7 @@
 				<thead>
 					<tr>
 						<th class="text-center">To Address</th>
-						<th class="text-center">From Address</th>
+						<th class="text-center fromAddressColum">From Address</th>
 						<th class="text-center">Date Begin - Date Finish</th>
 						<th class="text-center">Operation</th>
 						<th class="text-center">Quantity</th>
@@ -78,7 +83,7 @@
 				<tbody>
 					<tr ng-repeat="paymentD in paymentsDone">
 						<td class="text-center"><small>{{paymentD.toAddress}}</small></td>
-						<td class="text-center"><small>{{paymentD.fromAddress}}</small></td>
+						<td class="text-center fromAddressColum">{{paymentD.fromAddress}}</td>
 						<td class="text-center">{{paymentD.dateBegin | date:'short'}} - {{paymentD.dateFinish | date:'short'}}</td>
 						<td class="text-center">{{paymentD.opName}}</td>
 						<td class="text-center">{{paymentD.quantity}}</td>
@@ -124,6 +129,25 @@
 					<tr ng-repeat="address in addressesFree">
 						<td class="text-center"><small>{{address.string}}</small></td>
 						<td class="text-center">{{address.balance}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-show="!loadingData">
+		<div class="box col-xs-12">
+			<h3 class="text-center"> Payments onCreate Functions </h3>
+			<table class="table table-hover hidden-xs">
+				<thead>
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="onCreateFunction in onCreateFunctions">
+						<td class="text-center">{{onCreateFunction.name}} </td>
+						<td style="word-break: break-all;"><pre>{{onCreateFunction.code}}</pre></td>
 					</tr>
 				</tbody>
 			</table>

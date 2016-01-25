@@ -10,6 +10,7 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
     $scope.paymentQuantity = 0.001;
     $scope.paymentOperation = "";
     $scope.paymentMessage = "";
+    $scope.onCreateFunctions = [];
     $scope.onCompleteFunctions = [];
     $scope.onWarningFunctions = [];
     $scope.onCancelFunctions = [];
@@ -34,12 +35,17 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
 		$scope.paymentsWaiting = promise.data.payments;
 		console.log($scope.paymentsWaiting);
 	})
+    publicService.getOnCreateFunctions().then(function(promise){
+        console.log('Payment complete functions:');
+        $scope.onCreateFunctions = promise.data.functions;
+        console.log($scope.onCreateFunctions);
+        if ($scope.onCreateFunctions[0])
+            $scope.paymentOperation = $scope.onCreateFunctions[0].name;   
+    })
 	publicService.getOnCompleteFunctions().then(function(promise){
     	console.log('Payment complete functions:');
     	$scope.onCompleteFunctions = promise.data.functions;
 		console.log($scope.onCompleteFunctions);
-		if ($scope.onCompleteFunctions[0])
-			$scope.paymentOperation = $scope.onCompleteFunctions[0].name;	
 	})
     publicService.getOnWarningFunctions().then(function(promise){
         console.log('Payment warning functions:');
@@ -53,10 +59,16 @@ angular.module('ALapp.controllers').controller('btcPaymentsController',['$scope'
     })
 
 	$scope.createPayment = function(){
-		publicService.createBTCPayment($scope.paymentOperation,$scope.paymentQuantity,$scope.paymentMessage).then(function(promise){
-			if (promise.data.success)
-				$window.location.reload();		
-		})
+        console.log($scope.paymentEmail)
+        if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test($scope.paymentEmail)){
+            $('#emailInput').removeClass('has-error');
+            publicService.createBTCPayment($scope.paymentOperation,$scope.paymentQuantity,$scope.paymentEmail).then(function(promise){
+                if (promise.data.success)
+                    $window.location.reload();      
+            })
+        } else {
+            $('#emailInput').addClass('has-error');
+        }
 	}
 }]);
 

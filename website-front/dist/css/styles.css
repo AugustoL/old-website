@@ -144,6 +144,23 @@ a{
   overflow-y: auto;
 }
 
+/* BTC PAYMENTS */
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.fromAddressColum{
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  max-width: 300px;
+}
+
 /* BOX */
 .box {
   background-color: #F7FEFF;

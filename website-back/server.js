@@ -17,38 +17,6 @@ var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 //Get arguments
 var args = process.argv.slice(2);
 
-//Cretaing BTC-Payments
-var btcPaymentsConfig = {
-    logLevel : 'debug', // none, normal, debug
-    dbURI : config.dbURI,
-    network : 'testnet',
-    seedBytes : "testingseed23",
-    btcMainAddress : "mqyp4A44N1ekc2LzoAjasMo4SToZUrwfrG", // Address to receive the payments
-    paymentTimeout : 120,
-    limitBalance : 0.01,
-    txFee : 0.0001,
-    functionTimeout : 10, 
-    warningTimeout : 30
-};
-var BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[],[]);
-
-BTCPayments.addOnComplete('Test',function(payment,callback){
-	logger.log('Type Test tx done');
-    logger.log('Message in otherData: '+payment.otherData.message);
-    callback(null,'Success');
-});
-BTCPayments.addOnCancel('Test',function(payment,callback){
-    logger.log('Type Test tx canceled');
-    logger.log('Message in otherData: '+payment.otherData.message);
-    callback(null,'Success');
-});
-BTCPayments.addOnWarning('Test',function(payment,callback){
-    logger.log('Type one tx warned');
-    logger.log('Message in otherData: '+payment.otherData.message);
-    callback(null,'Success');
-});
-BTCPayments.start();
-
 //Connect
 var db = mongoose.createConnection(config.dbURI);
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -77,7 +45,8 @@ require('./schemas/categories')(db,mongoose);
 
 //Add routes
 require('./routes/spotify')(logger,app,db,config.spotifyCredentials).addRoutes();
-require('./routes/routes')(logger,app,db,BTCPayments).addRoutes();
+require('./routes/routes')(logger,app,db).addRoutes();
+require('./routes/btcPayments')(logger,app,db,config).addRoutes();
 
 app.all('/internalError',function(req,res) { res.render('error500.html') });
 //app.all('*',function(req,res) { res.render('error404.html') });
