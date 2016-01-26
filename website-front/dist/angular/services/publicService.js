@@ -159,6 +159,14 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         });
         return promise;
     }
+    factory.commentPost = function(newComment){
+        var promise = $http({
+            method: 'POST',
+            url: backendDomain+'/commentPost',
+            params: { postID : newComment.postID, name : newComment.name, text : newComment.text}
+        });
+        return promise;
+    }
 
     return factory;
 }]);

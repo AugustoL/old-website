@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
-var sendgrid  = require('sendgrid')("augustolemble", "lemblenaitor8");
+
 
 module.exports = function(logger,app,db,config){
 
+    var sendgrid  = require('sendgrid')(config.sendgridCredentials.user, config.sendgridCredentials.password);
     var module = {};
     //Cretaing BTC-Payments
     var btcPaymentsConfig = {

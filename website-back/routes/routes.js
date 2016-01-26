@@ -16,6 +16,8 @@ module.exports = function(logger,app,db){
         app.get('/getCategories', module.getCategories);
         app.get('/getImage', module.getImage);
         app.get('/getImages', module.getImages);
+
+        app.post('/commentPost', module.commentPost);
         
     }
 
@@ -67,7 +69,6 @@ module.exports = function(logger,app,db){
     // Values on query: {id}
     module.getPost = function(req,res){
         var data = req.query;
-        logger.log('Getting post '+data.id);
         db.posts.findOne({ '_id' : new mongoose.Types.ObjectId(data.id)}, {}, function (err, post) {
             if (err)
                 res.json({success : false, message : err.toString() });
@@ -109,6 +110,38 @@ module.exports = function(logger,app,db){
             } else {
                 res.json({success : false, message :'Image dont exist'});
             }
+        });
+    }
+
+    // Add comment on post
+    // Values on query: {postID,name,text}
+    module.commentPost = function(req,res){
+        var data = req.query;
+        var userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress ||req.connection.socket.remoteAddress;
+        db.posts.findOne({ '_id' : new mongoose.Types.ObjectId(data.postID)}, {}, function (err, post) {
+            if (err)
+                res.json({success : false, message : err.toString() });
+            else{
+                var allowed = true;
+                for (var i = 0; i < post.comments.length; i++) {
+                    console.log(post.comments[i].ip +"=="+ userIP);
+                    var time = (((new Date(post.comments[i].date.getTime() + 600000))-new Date())/60000);
+                    if ( (post.comments[i].ip == userIP) && (time > 0) ){
+                        allowed = false;
+                    }
+                };
+                if (allowed){
+                    post.addComment(data.name, data.text, userIP);
+                    post.save(function(err){
+                        if (err)
+                            res.json({success : false, message : err.toString() });
+                        else
+                            res.json({success : true});
+                    });
+                } else {
+                    res.json({success : false, message : 'You have to wait '+time+' minutes to comment again.' });
+                }
+            };
         });
     }
 

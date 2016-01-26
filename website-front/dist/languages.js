@@ -25,7 +25,10 @@ var strings = {
 		"submit" : "Submit",
 		"search" : "Search",
 		"searchByTitle" : "Search by title..",
-		"videocall" : "Videocall"
+		"videocall" : "Videocall",
+		"commentAlert" : "You have to wait 10 minutes from your last to comment again.",
+		"addComment" : "Add a comment",
+		"comments" : "Comments"
 	},
 	"es": {
 		"language" : "es",
@@ -53,7 +56,10 @@ var strings = {
 		"submit" : "Enviar",
 		"search" : "Buscar",
 		"searchByTitle" : "Buscar por titulo..",
-		"videocall" : "Videocall"
+		"videocall" : "Videocall",
+		"commentAlert" : "Tienes que esperar 10 minutos desde tu ultimo comentario para comentar otra vez.",
+		"addComment" : "Agregar un comentario",
+		"comments" : "Comentarios"
 	}
 };
 

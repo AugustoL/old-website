@@ -41,8 +41,7 @@ module.exports = function(logger,app){
     };
 
     module.renderPost = function (req, res) {
-        var url = req.protocol + '://' + req.get('host') + req.originalUrl; // points to this endpoint
-        console.log(req.query.id);
+        var url = req.protocol + '://' + req.get('host') + req.originalUrl;
         getRequestBackend('/getPost?id='+req.query.id,function(err, httpResponse, body){
             body = JSON.parse(body);
             res.render('index.html', {

@@ -90,7 +90,12 @@ body {
 a{
   cursor:pointer;
 }
-
+.comment-box{
+  resize : none;
+  height: 150px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 /* Images */
 .img{
   overflow:hidden;

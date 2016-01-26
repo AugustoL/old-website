@@ -41,7 +41,7 @@ module.exports = function(grunt,dirname) {
               dest: 'dist/angular'
           },{
               expand: true,
-              cwd: 'src/lenguages',
+              cwd: 'src/',
               src: '**/*.js',
               dest: 'dist/'
           }]
