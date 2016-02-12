@@ -45,11 +45,10 @@ require('./schemas/categories')(db,mongoose);
 
 //Add routes
 require('./routes/spotify')(logger,app,db,config.spotifyCredentials).addRoutes();
-require('./routes/routes')(logger,app,db).addRoutes();
+require('./routes/routes')(logger,app,db,config).addRoutes();
 require('./routes/btcPayments')(logger,app,db,config).addRoutes();
 
 app.all('/internalError',function(req,res) { res.render('error500.html') });
-//app.all('*',function(req,res) { res.render('error404.html') });
 
 //Start the server
 var server = app.listen(app.get('port'), function() {

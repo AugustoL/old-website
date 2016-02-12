@@ -3,8 +3,9 @@ var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 var fs = require('fs');
 var mongoose = require('mongoose');
 
-module.exports = function(logger,app,db){
+module.exports = function(logger,app,db,config){
 
+    var sendgrid  = require('sendgrid')(config.sendgridCredentials.user, config.sendgridCredentials.password);
     var module = {};
 
     module.addRoutes = function(){
@@ -131,6 +132,12 @@ module.exports = function(logger,app,db){
                     }
                 };
                 if (allowed){
+                    sendgrid.send({
+                        to : "comments@augustolemble.com",
+                        from : 'no-reply@augustolemble.com',
+                        subject : 'New comment by '+data.name+' on '+post.titleEn,
+                        html : "<h4>A comment on "+post.titleEn+" was added by "+data.name+":<br>"+data.text+"</h4>"
+                    });
                     post.addComment(data.name, data.text, userIP);
                     post.save(function(err){
                         if (err)
