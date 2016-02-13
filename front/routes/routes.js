@@ -25,10 +25,10 @@ module.exports = function(logger,app){
     module.renderIndex = function(req,res){
         var url = req.protocol + '://' + req.get('host') + req.originalUrl
         res.render('index.html', {
-            url: url,
-            title: 'AugustoLemble.com',
-            description: 'Personal website with my works, music, journeys, etc.',
-            ogimage: "http://augustolemble.com/getImage?name=yo2"
+            url : url,
+            title : 'AugustoLemble.com',
+            description : 'Personal website with my works, music, journeys, etc.',
+            ogimage : "http://augustolemble.com/getImage?name=yo2"
         });
     };
 
@@ -45,10 +45,10 @@ module.exports = function(logger,app){
         getRequestBackend('/getPost?id='+req.query.id,function(err, httpResponse, body){
             body = JSON.parse(body);
             res.render('index.html', {
-                url: url,
-                title: body.post.titleEn,
-                description: body.post.bodyEn,
-                ogimage: "http://augustolemble.com/getImage?name="+body.post.img,
+                url : url,
+                title : JSON.parse(body.post).titleEn,
+                description : JSON.parse(body.post).bodyEn,
+                ogimage : "http://augustolemble.com:3000/getImage?name="+JSON.parse(body.post).img,
             });
         })
     };

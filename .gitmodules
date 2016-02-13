@@ -1,4 +1,4 @@
-[submodule "website-back/schemas"]
-	path = website-back/schemas
+[submodule "back/schemas"]
+	path = back/schemas
 	url = https://github.com/AugustoL/website-schemas
 	branch = master

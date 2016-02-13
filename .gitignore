@@ -1,8 +1,8 @@
-website-front/node_modules
-website-back/node_modules
-website-front/logs/*.html
-website-front/dist/libs
-website-back/logs/*.html
-website-back/dist
-website-back/dist
+front/node_modules
+front/logs/*.html
+front/dist/libs
+front/dist/angular
+front/dist/css
+back/node_modules
+back/logs/*.html
 config.js
