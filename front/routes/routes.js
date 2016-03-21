@@ -15,7 +15,6 @@ module.exports = function(logger,app){
         app.get('/post', module.renderPost);
         app.get('/cv', module.renderIndex);
         app.get('/play', module.renderIndex);
-        app.get('/music', module.renderIndex);
         app.get('/projects', module.renderIndex);
         app.get('/videoCall', module.renderIndex);
         app.get('/btcPayments', module.renderIndex);

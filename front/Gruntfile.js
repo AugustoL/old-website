@@ -14,21 +14,15 @@ module.exports = function(grunt,dirname) {
 
   grunt.initConfig({
 
-      // configure jshint to validate js files -----------------------------------
       jshint: {
         options: {
-          reporter: require('jshint-stylish') // use jshint-stylish to make our errors look and read good
+          reporter: require('jshint-stylish')
         },
-
-        // when this task is run, lint the Gruntfile and all js files in src
         build: ['Gruntfile.js', 'src/angular/**/*.js']
       },
 
-      // get the configuration info from package.json ----------------------------
-      // this way we can use things like name and version (pkg.name)
       pkg: grunt.file.readJSON('package.json'),
 
-      // configure uglify to minify js files -------------------------------------
       uglify: {
         options: {
           banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
@@ -87,7 +81,6 @@ module.exports = function(grunt,dirname) {
         },
       },
 
-      // configure uglify to minify css files -------------------------------------
       cssmin: {
         options: {
           banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
@@ -122,7 +115,7 @@ module.exports = function(grunt,dirname) {
 
       clean: {
         build: {
-          src: ["dist/angular/*.js", "dist/css/*.css"]
+          src: ["dist/angular/**/**.js", "dist/css/**.css"]
         }
       },
 
@@ -139,6 +132,3 @@ module.exports = function(grunt,dirname) {
   });
 
 };
-
-
-

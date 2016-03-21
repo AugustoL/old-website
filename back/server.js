@@ -23,7 +23,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //Once connected do actions
 db.once('open', function callback () {
-    logger.important('Connected to DB: '+config.dbURI); 
+    logger.important('Connected to DB: '+config.dbURI);
 });
 
 //Launch express
@@ -44,7 +44,6 @@ require('./schemas/images')(db,mongoose);
 require('./schemas/categories')(db,mongoose);
 
 //Add routes
-require('./routes/spotify')(logger,app,db,config.spotifyCredentials).addRoutes();
 require('./routes/routes')(logger,app,db,config).addRoutes();
 require('./routes/btcPayments')(logger,app,db,config).addRoutes();
 
@@ -59,10 +58,9 @@ var server = app.listen(app.get('port'), function() {
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerjsOptions = { debug : true };
 
-//PeerJS API 
+//PeerJS API
 app.use('/peerapi', ExpressPeerServer(server, peerjsOptions));
 
 process.on('SIGINT', function() {
     process.exit();
 });
-

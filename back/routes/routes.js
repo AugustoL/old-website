@@ -10,7 +10,6 @@ module.exports = function(logger,app,db,config){
 
     module.addRoutes = function(){
 
-        //Get requests
         app.get('/getPosts', module.getPosts);
         app.get('/getPost', module.getPost);
         app.get('/getMonths', module.getMonths);
@@ -19,10 +18,10 @@ module.exports = function(logger,app,db,config){
         app.get('/getImages', module.getImages);
 
         app.post('/commentPost', module.commentPost);
-        
+
     }
 
-    // Get months 
+    // Get months
     // Values on query: {formDate,page}
     module.getMonths = function(req,res){
         var data = req.query;
@@ -31,7 +30,7 @@ module.exports = function(logger,app,db,config){
         });
     }
 
-    // Get categories 
+    // Get categories
     // Values on query: {formDate,page}
     module.getCategories = function(req,res){
         var data = req.query;
@@ -40,7 +39,7 @@ module.exports = function(logger,app,db,config){
         });
     }
 
-    // Get posts 
+    // Get posts
     // Values on query: {formDate,page}
     module.getPosts = function(req,res){
         var data = req.query;
@@ -48,7 +47,7 @@ module.exports = function(logger,app,db,config){
         var toReturn = {};
         if (data.skip == -10){
             db.posts.count({}, function( err, count){
-                var lastPage = Math.floor(count/10);             
+                var lastPage = Math.floor(count/10);
                 db.posts.find({ $and: [{ $where: "this.draft != true" }, JSON.parse(data.findBy) ]}).sort(data.sort).skip(lastPage*10).limit(10).exec(function(err, result){
                     if (result)
                         res.json({success : true, lastPage : lastPage, posts : result });
@@ -87,26 +86,26 @@ module.exports = function(logger,app,db,config){
             if (image){
                 if (image.data.indexOf('data:image/jpeg;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/jpeg;base64,',''), 'base64');
-                    new Imagemin().src(img).use(imageminJpegRecompress({ target : 0.88, loops : 3, max : 90 })).run(function(err, files) {        
-                        if (err)             
-                            return next(err);        
+                    new Imagemin().src(img).use(imageminJpegRecompress({ target : 0.88, loops : 3, max : 90 })).run(function(err, files) {
+                        if (err)
+                            return next(err);
                         res.writeHead(200, {
                             'Content-Type': 'image/jpeg',
                             'Content-Length': files[0].contents.length
                         });
                         res.end(files[0].contents);
-                    }); 
+                    });
                 } else if (image.data.indexOf('data:image/png;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/png;base64,',''), 'base64');
-                    new Imagemin().src(img).use(Imagemin.optipng({optimizationLevel: 3})).run(function(err, files) {        
-                        if (err)            
-                            return next(err);        
+                    new Imagemin().src(img).use(Imagemin.optipng({optimizationLevel: 3})).run(function(err, files) {
+                        if (err)
+                            return next(err);
                         res.writeHead(200, {
                             'Content-Type': 'image/png',
                             'Content-Length': files[0].contents.length
                         });
                         res.end(files[0].contents);
-                    }); 
+                    });
                 }
             } else {
                 res.json({success : false, message :'Image dont exist'});
@@ -158,7 +157,7 @@ module.exports = function(logger,app,db,config){
                 res.json({success : false, error : err.toString()});
             else
                 res.json({success : true, images : images});
-        });        
+        });
     }
 
     return module;

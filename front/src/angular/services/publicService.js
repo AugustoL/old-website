@@ -32,24 +32,6 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         return promise;
     }
 
-    factory.getAllPlaylists= function () {
-        var promise = $http({
-            method: 'GET',
-            url: backendDomain+'/getAllPlaylists',
-            params: {}
-        });
-        return promise;
-    }
-
-    factory.getPlaylist= function (id,owner) {
-        var promise = $http({
-            method: 'GET',
-            url: backendDomain+'/getPlaylist',
-            params: { id : id, owner : owner}
-        });
-        return promise;
-    }
-
     //Get Post by id
     factory.getPost= function (id) {
         var promise = $http({
@@ -69,7 +51,7 @@ angular.module('ALapp.services').factory('publicService', ['$http','$window', fu
         });
         return promise;
     }
-   
+
     factory.getImages = function(){
         var promise = $http({
             method: 'GET',

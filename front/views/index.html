@@ -32,31 +32,30 @@
         <script type="text/javascript" src="/dist/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
         <script type="text/javascript" src="/dist/libs/angular-socialshare/dist/angular-socialshare.min.js"></script>
         <!-- LANGUAGES -->
-        <script type="text/javascript" src="/dist/languages.js"></script> 
+        <script type="text/javascript" src="/dist/languages.js"></script>
         <!-- ANGULAR -->
         <script type="text/javascript" src="/dist/angular/appCore.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/footer.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/navbar.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/sidebar.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/image.js"></script>
-        <script type="text/javascript" src="/dist/angular/services/publicService.js"></script> 
+        <script type="text/javascript" src="/dist/angular/services/publicService.js"></script>
         <script type="text/javascript" src="/dist/angular/services/sessionService.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/navBarController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/sidebarController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/homeController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/postController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/cvController.js"></script>
-        <script type="text/javascript" src="/dist/angular/controllers/musicController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/projectsController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/footerController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/videoCallController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/btcPaymentsController.js"></script>
-        <script type="text/javascript" src="/dist/angular/routeProvider.js"></script>  
+        <script type="text/javascript" src="/dist/angular/routeProvider.js"></script>
     </head>
     <body>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <div ng-view class="fullHeight"></div>
-        <div footer=""></div> 
+        <div footer=""></div>
     </body>
     <script type="text/javascript">
         document.head = document.head || document.getElementsByTagName('head')[0];
@@ -73,7 +72,7 @@
             } else {
                 link.href = "/dist/img/handWhite.ico";
                 isWhite = true;
-            } 
+            }
             if (oldLink) {
                 document.head.removeChild(oldLink);
             }

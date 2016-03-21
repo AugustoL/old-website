@@ -12,10 +12,10 @@ git clone https://github.com/AugustoL/website
 cd website
 git submodule init
 git submodule update
-cd website-back
+cd back
 npm install
 cd ..
-cd website-front
+cd front
 npm install && bower install
 cd ..
 ```
