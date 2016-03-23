@@ -19,6 +19,9 @@ module.exports = function(logger,app,db,config){
 
         app.post('/commentPost', module.commentPost);
 
+        app.get('/getOCNodes', module.getOCNodes);
+        app.post('/addOCNode', module.addOCNode);
+
     }
 
     // Get months
@@ -157,6 +160,39 @@ module.exports = function(logger,app,db,config){
                 res.json({success : false, error : err.toString()});
             else
                 res.json({success : true, images : images});
+        });
+    }
+
+    //OpenContent methods
+
+    module.getOCNodes = function(req,res){
+        fs.readFile( __dirname+"/OCNodes.txt", function (err, data) {
+            if (err)
+                res.json({err : err.toString()});
+            else
+                res.json({nodes : data.toString()});
+        });
+    }
+
+    module.addOCNode = function(req,res){
+        var nodeURL = req.query.nodeURL;
+        fs.readFile( __dirname+"/OCNodes.txt", function (err, data) {
+            if (err)
+                res.json({err : err.toString()});
+            else {
+                var newData = data.toString();
+                if (data.toString().indexOf(nodeURL.toString()) < 0){
+                    newData = newData + nodeURL + ";";
+                    fs.writeFile(__dirname+"/OCNodes.txt", newData.toString(), function (err) {
+                        if (err)
+                            res.json({err : err.toString()});
+                        else
+                            res.json({success : true});
+                    });
+                } else {
+                    res.json({success : false});
+                }
+            }
         });
     }
 
